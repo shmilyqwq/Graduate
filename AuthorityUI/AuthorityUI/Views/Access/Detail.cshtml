@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="wrapper">
+<div class="text-center">
+    <h1 class="display-4">权限点组明细信息页面</h1>
+</div>
+<div class="row">
+    <div class="col-sm-offset-2 col-sm-8">
+        <section class="panel">
+            <header class="panel-heading text-center">
+                权限点信息
+            </header>
+            <div class="panel-body">
+                <div class="form">
+                    <form class="form-validate form-horizontal " id="register_form" method="get" action="" novalidate="novalidate">
+                        <div class="form-group ">
+                            <label for="aname" class="control-label col-lg-2">权限点名称 <span class="required">*</span></label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" id="aname" name="aname" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="adesc" class="control-label col-lg-2">权限点描述<span class="required">*</span></label>
+                            <div class="col-lg-10">
+                                <input class=" form-control" id="adesc" name="adesc" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <button class="btn btn-default" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</section>
