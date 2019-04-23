@@ -46,7 +46,7 @@
                                 </div>*@
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" type="submit" onclick="UserAdd()">Save</button>
                                         <button class="btn btn-default" type="button">Cancel</button>
                                     </div>
                                 </div>
@@ -119,6 +119,10 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @*@for(int i = 0; i < Users.Count; i++)
+                                                    {
+
+                                                    }*@
                                                     <tr>
                                                         <td i class="label_check" for="checkbox-01">
                                                             <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
@@ -227,24 +231,46 @@
         window.open('@Url.Action("Apoint","User")');
             }
             function add() {
-                var myId = document.getElementById("show");
-                if (myId.style.display == "none") {
-                    myId.style.display = "block";
-                    document.getElementById("hide").style.display = "none";
-                }
-                //document.getElementById("show").style.display = "block";
-                //document.getElementById("hide").style.display = "none";
+                //var myId = document.getElementById("show");
+                //if (myId.style.display == "none") {
+                //    myId.style.display = "block";
+                //    document.getElementById("hide").style.display = "none";
+                //}
+                document.getElementById("show").style.display = "block";
+                document.getElementById("hide").style.display = "none";
 
                     }
-            function que() {
-                document.getElementById("show").style.display = "none";
-                document.getElementById("hide").style.display = "block";
+            //function que() {
+            //    document.getElementById("show").style.display = "none";
+            //    document.getElementById("hide").style.display = "block";
 
-            }
+            //}
+                        
+                        function UserAdd() {
+                            alert("添加");
+                            $.ajax({
+                                url:'@Url.Action("AddUser","User")',
+                                data: {
+                                    uname: $("#uname").value(),
+                                    email:$("#email").value(),
+                                },
+                                type: 'get',
+                                datatype: 'json',
+                                success: function (data) {
+                                    if (data == 1) {
+                                        alert("添加成功！");
+                                        document.getelementbyid("show").style.display = "none";
+                                        document.getelementbyid("hide").style.display = "block";
+                                    }},
+                                error: function () {
+                                    alert("添加失败！");
+                                }
+                            })
 
+                        }
 
                     </script>
 
                 </p>
 </body>
-</html>
+

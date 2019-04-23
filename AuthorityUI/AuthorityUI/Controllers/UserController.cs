@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AuthorityUI.Models;
+using Authority.Infrastructure.MyCourse;
 
 namespace AuthorityUI.Controllers
 {
@@ -45,6 +46,11 @@ namespace AuthorityUI.Controllers
         public IActionResult Apoint()
         {
             return View();
+        }
+
+        public IActionResult AddUser(TbUser user)
+        {
+            return Content("success");
         }
     }
 }
