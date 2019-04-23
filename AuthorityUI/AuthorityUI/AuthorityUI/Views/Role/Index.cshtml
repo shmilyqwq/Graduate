@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="wrapper">
+    <div class="text-center ">
+        <h1 class="display-4">角色列表信息页面</h1>
+    </div>
+
+    <div class="nav search-row " id="top_menu">
+        <!--  search form start 搜索框-->
+        <ul class="nav top-menu">
+            <li>
+                <form class="navbar-form">
+                    <input class="form-control" placeholder="角色名称" type="text">
+                </form>
+            </li>
+        </ul>
+        <!--  search form end -->
+    </div>
+
+    <!--列表-->
+
+    <div class="row panel-body">
+        <a class="btn btn-default btn-sm" href="" title="添加" onclick="add()">
+            <i class="fa fa-plus"></i>&nbsp;添加
+        </a>
+        <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
+            <i class="fa fa-pencil"></i>&nbsp;修改
+        </a>
+        <a class="btn btn-default btn-sm" href="" title="删除" onclick="delcfm()">
+            <i class="fa fa-minus"></i>&nbsp;删除
+        </a>
+        <a class="btn btn-default btn-sm" href="" title="分配权限点" onclick="naccess()">
+            <i class="fa fa-key"></i>&nbsp;分配权限点
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2><i class="fa fa-flag-o red"></i><strong> Role List</strong></h2>
+                    <div class="panel-actions">
+                        <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                        <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                        <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table bootstrap-datatable users">
+                        <thead>
+                            <tr>
+                                <th i class=" label_check">
+                                    <input name="a1lSel" type="checkbox" onclick="All(this)" value="全选" />全选
+                                </th>
+                                <th>角色ID</th>
+                                <th>角色名称</th>
+                                @* <th>父节点</th>*@
+                                <th>角色描述</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td i class="label_check" for="checkbox-01">
+                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
+                                </td>
+                                <td>1</td>
+                                <td>admin</td>
+                                <td>管理员</td>
+                            </tr>
+                            <tr>
+                                <td i class="label_check" for="checkbox-01">
+                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
+                                </td>
+                                <td>2</td>
+                                <td>majordomo</td>
+                                <td>总监</td>
+                            </tr>
+                            <tr>
+                                <td i class="label_check" for="checkbox-02">
+                                    <input name="sample-checkbox-01" id="checkbox-02" value="2" type="checkbox" />
+                                </td>
+                                <td>3</td>
+                                <td>staff</td>
+                                <td>职员</td>
+                            </tr>
+                            <tr>
+                                <td i class="label_check" for="checkbox-03">
+                                    <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
+                                </td>
+                                <td>4</td>
+                                <td>manager</td>
+                                <td>经理</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10 text-center">
+            <div class="dataTables_paginate paging_bootstrap">
+                <ul class="pagination">
+                    <li class="prev disabled">
+                        <a href="#">←上一页 </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li class="more"><a href="#">更多>></a></li>
+                    <li class="next"><a href="#"> 下一页→ </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<p>
+    <script type="text/javascript">
+            //function showtext() {
+            //    $("#con").attr("style", "display:;");
+            //}
+
+                function All(ch) {
+                        var sda = ch.checked;
+                        var char = document.getElementsByName("sample-checkbox-01");
+                        for(var i in char){
+                    char[i].checked = sda;
+                }
+            }
+        function delcfm() {
+        if (!confirm("确认要删除？")) {
+        window.event.returnValue = false;
+        }
+        }
+
+        function add() {
+        @*window.open('@Url.Action("Detail","User")');*@
+        window.open('@Url.Action("Detail", "Role")', '添加', 'height=600, width=400, top=200, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no') //这句要写成一行
+        }
+        function naccess() {
+        window.open('@Url.Action("Apoint","Role")');
+        }
+    </script>
+
+</p>

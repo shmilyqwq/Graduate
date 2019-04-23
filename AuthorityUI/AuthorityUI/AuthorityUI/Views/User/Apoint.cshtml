@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="wrapper">
+    <div class="text-center">
+        <h1 class="display-4">分配权限点</h1>
+    </div>
+    <div class="col-lg-10">
+        <section class="panel">
+            <div class="panel-body">
+                <form class="form-horizontal " method="get">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2" for="inputSuccess">您已选择的用户：</label>
+                        <div class="box-content">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>用户ID</th>
+                                        <th>用户名称</th>
+                                        <th>所属用户组</th>
+                                        <th>角色</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1001</td>
+                                        <td>jack</td>
+                                        <td>设计部</td>
+                                        <td>总监</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>1002</td>
+                                        <td>Linda</td>
+                                        <td>人事部</td>
+                                        <td>职员</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>1003</td>
+                                        <td>Spadn</td>
+                                        <td>研发部</td>
+                                        <td>职员</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="inputSuccess">选择权限点</label>
+                            <div class="col-lg-10">
+                                <select class="form-control m-bot15">
+                                    <option>增加用户</option>
+                                    <option>删除用户</option>
+                                    <option>增加角色</option>
+                                    <option>删除用户组</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-offset-5 col-lg-10">
+                            <button type="submit" class="btn btn-danger">确定</button>
+                            <button type="submit" class="btn btn-danger">取消</button>
+                        </div>
+                     </div>
+                   </form>
+            </div>
+        </section>
+    </div>
+</section>
