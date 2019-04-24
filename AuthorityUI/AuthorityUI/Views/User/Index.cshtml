@@ -1,21 +1,15 @@
-﻿@*<!DOCTYPE HTML>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <title>display</title>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-</head>*@
-<body>
+﻿
+@using Authority.Infrastructure.MyCourse;
     @{
-        ViewData["Title"] = "Home Page";
+        var users = ViewData["Users"] as List<User>;
     }
-
+<body>
     <section class="wrapper panel">
         <div class="text-center ">
             <h1 class="display-4">用户列表信息页面</h1>
         </div>
 
-        
+
         <!--列表-->
         <div id="show" style="display:none">
             <div class="col-lg-12">
@@ -25,7 +19,7 @@
                     </header>
                     <div class="panel-body">
                         <div class="form">
-                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action="" novalidate="novalidate">
+                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action='@Url.Action("AddUser","User")' novalidate="novalidate">
                                 <div class="form-group ">
                                     <label for="uname" class="control-label col-lg-2">用户名称 <span class="required">*</span></label>
                                     <div class="col-lg-10">
@@ -39,14 +33,14 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group ">
-                                    <label for="password" class="control-label col-lg-2">用户密码</label>
-                                    <div class="col-lg-10">
-                                        <input class="form-control " id="curl" type="password" name="password">
-                                    </div>
-                                </div>*@
+                                        <label for="password" class="control-label col-lg-2">用户密码</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control " id="curl" type="password" name="password">
+                                        </div>
+                                    </div>*@
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                        <button class="btn btn-primary" type="submit" onclick="UserAdd()">Save</button>
+                                        <button class="btn btn-primary" type="submit">Save</button>
                                         <button class="btn btn-default" type="button">Cancel</button>
                                     </div>
                                 </div>
@@ -57,150 +51,126 @@
                 </section>
             </div>
         </div>
-                        <div id="hide">
-                            <div class="nav search-row " id="top_menu">
-                                <!--  search form start 搜索框-->
-                                <ul class="nav top-menu">
-                                    <li>
-                                        <form class="navbar-form">
-                                            <input class="form-control" placeholder="Email" type="text">
-                                        </form>
-                                    </li>
-                                </ul>
-                                <!--  search form end -->
-                            </div>
-                            <div class="row panel-body">
-                                <a class="btn btn-default btn-sm" title="添加" id="btnshow" onclick="add()">
-                                    <i class="fa fa-plus"></i>&nbsp;添加
-                                </a>
-                                <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
-                                    <i class="fa fa-pencil"></i>&nbsp;修改
-                                </a>
-                                <a class="btn btn-default btn-sm" href="" title="删除" id="btn2" onClick="delcfm()">
-                                    <i class="fa fa-minus"></i>&nbsp;删除
-                                </a>
-                                <a class="btn btn-default btn-sm" href="" title="分配角色" onclick="nrole()">
-                                    <i class="fa fa-group"></i>&nbsp;分配角色
-                                </a>
-                                <a class="btn btn-default btn-sm" href="" title="分配用户组" onclick="ngroup()">
-                                    <i class="fa fa-sitemap"></i>&nbsp;分配用户组
-                                </a>
-                                <a class="btn btn-default btn-sm" href="" title="分配权限点" onclick="naccess()">
-                                    <i class="fa fa-key"></i>&nbsp;分配权限点
-                                </a>
-                            </div>
+        <div id="hide">
+            <div class="nav search-row " id="top_menu">
+                <!--  search form start 搜索框-->
+                <ul class="nav top-menu">
+                    <li>
+                        <form class="navbar-form">
+                            <input class="form-control" placeholder="Email" type="text">
+                        </form>
+                    </li>
+                </ul>
+                <!--  search form end -->
+            </div>
+            <div class="row panel-body">
+                <a class="btn btn-default btn-sm" title="添加" id="btnshow" onclick="add()">
+                    <i class="fa fa-plus"></i>&nbsp;添加
+                </a>
+                <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
+                    <i class="fa fa-pencil"></i>&nbsp;修改
+                </a>
+                <a class="btn btn-default btn-sm" href="" title="删除" id="btn2" onClick="delcfm()">
+                    <i class="fa fa-minus"></i>&nbsp;删除
+                </a>
+                <a class="btn btn-default btn-sm" href="" title="分配角色" onclick="nrole()">
+                    <i class="fa fa-group"></i>&nbsp;分配角色
+                </a>
+                <a class="btn btn-default btn-sm" href="" title="分配用户组" onclick="ngroup()">
+                    <i class="fa fa-sitemap"></i>&nbsp;分配用户组
+                </a>
+                <a class="btn btn-default btn-sm" href="" title="分配权限点" onclick="naccess()">
+                    <i class="fa fa-key"></i>&nbsp;分配权限点
+                </a>
+            </div>
 
 
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="panel panel-default">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="panel panel-default">
 
-                                        <div class="panel-heading">
-                                            <h2><i class="fa fa-flag-o red"></i><strong> User List</strong></h2>
-                                            <div class="panel-actions">
-                                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <table class="table bootstrap-datatable users">
-                                                <thead>
-                                                    <tr>
-                                                        <th i class=" label_check">
-                                                            <input name="a1lSel" type="checkbox" onclick="All(this)" value="全选" />全选
-                                                        </th>
-                                                        <th>用户ID</th>
-                                                        <th>用户名称</th>
-                                                        <th>所属用户组</th>
-                                                        <th>角色</th>
-                                                        <th>邮箱</th>
-                                                        <th>密码</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @*@for(int i = 0; i < Users.Count; i++)
-                                                    {
-
-                                                    }*@
-                                                    <tr>
-                                                        <td i class="label_check" for="checkbox-01">
-                                                            <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
-                                                        </td>
-                                                        <td>1001</td>
-                                                        <td>jack</td>
-                                                        <td>设计部</td>
-                                                        <td>总监</td>
-                                                        <td>quidnv@163.com</td>
-                                                        <td>000000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td i class="label_check" for="checkbox-02">
-                                                            <input name="sample-checkbox-01" id="checkbox-02" value="2" type="checkbox" />
-                                                        </td>
-                                                        <td>1002</td>
-                                                        <td>Linda</td>
-                                                        <td>人事部</td>
-                                                        <td>职员</td>
-                                                        <td>lidncx@163.com</td>
-                                                        <td>000000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td i class="label_check" for="checkbox-03">
-                                                            <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
-                                                        </td>
-                                                        <td>1003</td>
-                                                        <td>Spadn</td>
-                                                        <td>研发部</td>
-                                                        <td>职员</td>
-                                                        <td>sspad@163.com</td>
-                                                        <td>000000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td i class="label_check" for="checkbox-04">
-                                                            <input name="sample-checkbox-01" id="checkbox-04" value="2" type="checkbox" />
-                                                        </td>
-                                                        <td>1004</td>
-                                                        <td>Rose</td>
-                                                        <td>研发部</td>
-                                                        <td>经理</td>
-                                                        <td>rsdje@162.com</td>
-                                                        <td>000000</td>
-                                                    </tr>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-10 text-center">
-                                    <div class="dataTables_paginate paging_bootstrap">
-                                        <ul class="pagination">
-                                            <li class="prev disabled">
-                                                <a href="#">←上一页 </a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="#">1</a>
-                                            </li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
-                                            <li class="more"><a href="#">更多>></a></li>
-                                            <li class="next"><a href="#"> 下一页→ </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                        <div class="panel-heading">
+                            <h2><i class="fa fa-flag-o red"></i><strong> User List</strong></h2>
+                            <div class="panel-actions">
+                                <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                                <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                                <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
+                        <div class="panel-body">
+                            <table class="table bootstrap-datatable users">
+                                <thead>
+                                    <tr>
+                                        <th i class=" label_check">
+                                            <input name="a1lSel" type="checkbox" onclick="All(this)" value="全选" />全选
+                                        </th>
+                                        <th>用户ID</th>
+                                        <th>用户名称</th>
+                                        <th>所属用户组</th>
+                                        <th>角色</th>
+                                        <th>邮箱</th>
+                                        <th>密码</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < users.Count; i++)
+                                    {
+                                        <tr>
+                                            <td i class="label_check" for="checkbox-03">
+                                                <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
+                                            </td>
+                                            <td>@users[i].Uid</td>
+                                            <td>@users[i].Uname</td>
+                                            <td>@users[i].Email</td>
+                                            <td>000000</td>
+                                        </tr>
+                                    }
+                                    
+                                    @*<tr>
+                                        <td i class="label_check" for="checkbox-04">
+                                            <input name="sample-checkbox-01" id="checkbox-04" value="2" type="checkbox" />
+                                        </td>
+                                        <td>1004</td>
+                                        <td>Rose</td>
+                                        <td>研发部</td>
+                                        <td>经理</td>
+                                        <td>rsdje@162.com</td>
+                                        <td>000000</td>
+                                    </tr>*@
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 text-center">
+                    <div class="dataTables_paginate paging_bootstrap">
+                        <ul class="pagination">
+                            <li class="prev disabled">
+                                <a href="#">←上一页 </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1</a>
+                            </li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li class="more"><a href="#">更多>></a></li>
+                            <li class="next"><a href="#"> 下一页→ </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-      <p>
-                    <script type="text/javascript">
+
+        <script type="text/javascript">
             function All(ch) {
                         var sda = ch.checked;
                         var char = document.getElementsByName("sample-checkbox-01");
@@ -244,33 +214,9 @@
             //    document.getElementById("show").style.display = "none";
             //    document.getElementById("hide").style.display = "block";
 
-            //}
-                        
-                        function UserAdd() {
-                            alert("添加");
-                            $.ajax({
-                                url:'@Url.Action("AddUser","User")',
-                                data: {
-                                    uname: $("#uname").value(),
-                                    email:$("#email").value(),
-                                },
-                                type: 'get',
-                                datatype: 'json',
-                                success: function (data) {
-                                    if (data == 1) {
-                                        alert("添加成功！");
-                                        document.getelementbyid("show").style.display = "none";
-                                        document.getelementbyid("hide").style.display = "block";
-                                    }},
-                                error: function () {
-                                    alert("添加失败！");
-                                }
-                            })
+            //}            
 
-                        }
+        </script>
 
-                    </script>
-
-                </p>
 </body>
 

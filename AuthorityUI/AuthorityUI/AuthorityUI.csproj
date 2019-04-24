@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\新文件夹\**" />
-    <Content Remove="Views\新文件夹\**" />
-    <EmbeddedResource Remove="Views\新文件夹\**" />
-    <None Remove="Views\新文件夹\**" />
+    <Compile Remove="Views\新文件夹1\**" />
+    <Content Remove="Views\新文件夹1\**" />
+    <EmbeddedResource Remove="Views\新文件夹1\**" />
+    <None Remove="Views\新文件夹1\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +24,7 @@
     <Content Remove="Views\Access\Xin.cshtml" />
     <Content Remove="Views\Group\Detail - 复制%282%29.cshtml" />
     <Content Remove="Views\Group\Detail - 复制.cshtml" />
+    <Content Remove="Views\User\Login.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

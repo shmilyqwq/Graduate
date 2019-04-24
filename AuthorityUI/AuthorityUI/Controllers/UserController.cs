@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AuthorityUI.Models;
 using Authority.Infrastructure.MyCourse;
+using Authority.DomainModel;
 
 namespace AuthorityUI.Controllers
 {
@@ -15,8 +16,17 @@ namespace AuthorityUI.Controllers
         /// 显示用户列表信息
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(string uname, string email)
         {
+            var userService = new UserService();
+            var users = userService.GetAll();
+            //访问数据库，获取一个用户列表
+            //var users = new List<User>()
+            //{
+            //    new User(){Uid=1001,Uname="alam",Email="qjwew@163.com",Password="000000"},
+            //    new User(){Uid=1002,Uname="scff",Email="xascz@163.com",Password="000000"}
+            //};
+            ViewData["Users"] = users;
             return View();
         }
         /// <summary>
@@ -48,9 +58,11 @@ namespace AuthorityUI.Controllers
             return View();
         }
 
-        public IActionResult AddUser(TbUser user)
+        public IActionResult AddUser(User user)
         {
-            return Content("success");
+            var userService = new UserService();
+            var count = userService.UserAdd(user.Uname, user.Email);
+            return Redirect(Url.Action("Index", "User"));
         }
     }
 }

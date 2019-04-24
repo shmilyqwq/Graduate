@@ -6,31 +6,31 @@ using Authority.Infrastructure.MyCourse;
 
 namespace Authority.DomainModel
 {
-    public class UserService
+    public class RoleService
     {
         #region Action
-        public List<User> GetAll()
+        public List<Role> GetAll()
         {
-            List<User> users = null;
+            List<Role> roles = null;
             using (var dbContext = new AuthorityContext())
             {
-                users = dbContext.User.ToList();
+                roles = dbContext.Role.ToList();
             }
-            return users;
+            return roles;
         }
 
-        public int UserAdd(string uname, string email)
+        public int RoleAdd(string rname, string rdesc)
         {
             int count = 0;
-            var user = new User()
+            var role = new Role()
             {
-                Uname = uname,
-                Email = email,
-                Password = uname + "000000",
+                Rname = rname,
+                Rdesc = rdesc,
+                
             };
             using (var dbContext = new AuthorityContext())
             {
-                dbContext.User.Add(user);
+                dbContext.Role.Add(role);
                 count = dbContext.SaveChanges();
             }
             return count;
@@ -38,3 +38,6 @@ namespace Authority.DomainModel
         #endregion
     }
 }
+
+
+

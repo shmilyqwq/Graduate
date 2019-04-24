@@ -10,10 +10,5 @@ namespace Authority.Infrastructure.MyCourse
         public int? Rid { get; set; }
         public int? Gid { get; set; }
         public int? Aid { get; set; }
-
-        public virtual TbAccess A { get; set; }
-        public virtual TbGroup G { get; set; }
-        public virtual TbRole R { get; set; }
-        public virtual TbUser U { get; set; }
     }
 }

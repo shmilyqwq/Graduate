@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AuthorityUI.Models;
+using Authority.Infrastructure.MyCourse;
+using Authority.DomainModel;
 
 namespace AuthorityUI.Controllers
 {
@@ -16,6 +18,10 @@ namespace AuthorityUI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            var roleService = new RoleService();
+            var roles = roleService.GetAll();
+            //访问数据库，获取一个角色列表            
+            ViewData["Roles"] = roles;
             return View();
         }
         /// <summary>
@@ -29,6 +35,12 @@ namespace AuthorityUI.Controllers
         public IActionResult Apoint()
         {
             return View();
+        }
+        public IActionResult AddRole(Role role)
+        {
+            var roleService = new RoleService();
+            var count = roleService.RoleAdd(role.Rname, role.Rdesc);
+            return Redirect(Url.Action("Index", "Role"));
         }
 
     }

@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorityUI", "AuthorityUI\AuthorityUI.csproj", "{11191F08-CF02-48B7-B8B2-2B0AF6115208}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.DomainModel", "Authority.DomainModel\Authority.DomainModel.csproj", "{CB25D9AC-FFFA-46E5-8021-9AA625EA569C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authority.DomainModel", "Authority.DomainModel\Authority.DomainModel.csproj", "{CB25D9AC-FFFA-46E5-8021-9AA625EA569C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.Infrastructure", "Authority.Infrastructure\Authority.Infrastructure.csproj", "{6076485E-F8A2-4205-94AB-634FE7D0BD19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authority.Infrastructure", "Authority.Infrastructure\Authority.Infrastructure.csproj", "{6076485E-F8A2-4205-94AB-634FE7D0BD19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

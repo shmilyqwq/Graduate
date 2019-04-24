@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Authority.Infrastructure.MyCourse;
+@{
     ViewData["Title"] = "Home Page";
+    var roles = ViewData["Roles"] as List<Role>;
 }
 <section class="wrapper">
     <div class="text-center ">
@@ -60,38 +62,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @for(int i=0; i<roles.Count; i++){
+                                 <tr>
                                 <td i class="label_check" for="checkbox-01">
                                     <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
                                 </td>
-                                <td>1</td>
-                                <td>admin</td>
-                                <td>管理员</td>
+                                <td>@roles[i].Rname</td>
+                                <td>@roles[i].Rdesc</td>                                
                             </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-01">
-                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
-                                </td>
-                                <td>2</td>
-                                <td>majordomo</td>
-                                <td>总监</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-02">
-                                    <input name="sample-checkbox-01" id="checkbox-02" value="2" type="checkbox" />
-                                </td>
-                                <td>3</td>
-                                <td>staff</td>
-                                <td>职员</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-03">
-                                    <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
-                                </td>
-                                <td>4</td>
-                                <td>manager</td>
-                                <td>经理</td>
-                            </tr>
+                            }
+                           
+                            @*<tr>
+            <td i class="label_check" for="checkbox-01">
+                <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
+            </td>
+            <td>1</td>
+            <td>admin</td>
+            <td>管理员</td>
+        </tr>*@
                         </tbody>
                     </table>
                 </div>

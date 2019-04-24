@@ -8,8 +8,5 @@ namespace Authority.Infrastructure.MyCourse
         public int Rrid { get; set; }
         public int? Rid { get; set; }
         public int? Aid { get; set; }
-
-        public virtual TbAccess A { get; set; }
-        public virtual TbRole R { get; set; }
     }
 }
