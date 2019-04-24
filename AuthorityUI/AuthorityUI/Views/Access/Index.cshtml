@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Authority.Infrastructure.MyCourse;
+@{
     ViewData["Title"] = "Home Page";
+    var authors = ViewData["Authors"] as List<Author>;
 }
 <section class="wrapper">
     <div class="text-center ">
@@ -66,38 +68,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @for (int i = 0; i < authors.Count; i++)
+                            {
+                                <tr>
+                                    <td i class="label_check" for="checkbox-01">
+                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
+                                    </td>
+                                    <td>@authors[i].Aid</td>
+                                    <td>@authors[i].Aname</td>
+                                    <td>@authors[i].Enabled</td>
+                                </tr>
+                            }
+                            @*<tr>
                                 <td i class="label_check" for="checkbox-01">
                                     <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
                                 </td>
                                 <td>1</td>
                                 <td>增加用户</td>
                                 <td>是</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-01">
-                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
-                                </td>
-                                <td>2</td>
-                                <td>删除用户</td>
-                                <td>是</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-02">
-                                    <input name="sample-checkbox-02" id="checkbox-02" value="2" type="checkbox" />
-                                </td>
-                                <td>3</td>
-                                <td>增加角色</td>
-                                <td>否</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-03">
-                                    <input name="sample-checkbox-03" id="checkbox-03" value="2" type="checkbox" />
-                                </td>
-                                <td>4</td>
-                                <td>删除用户组</td>
-                                <td>否</td>
-                            </tr>
+                            </tr>*@
                         </tbody>
                     </table>
                 </div>
@@ -125,7 +114,7 @@
                 <div class="col-sm-offset-2 col-sm-8">
 
                     <div class="form">
-                        <form class="form-validate form-horizontal " id="register_form" method="get" action="" novalidate="novalidate">
+                        <form class="form-validate form-horizontal " id="register_form" method="get" action='@Url.Action("AddAccess","Access")' novalidate="novalidate">
                             <div class="form-group ">
                                 <label for="aname" class="control-label col-lg-2">权限点名称 <span class="required">*</span></label>
                                 <div class="col-lg-10">
@@ -140,7 +129,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <button class="btn btn-primary" type="submit" onclick="">Save</button>
                                     <button class="btn btn-default" type="button" id="cancel">Cancel</button>
                                 </div>
                             </div>
@@ -149,31 +138,31 @@
                 </div>
             </section>
 
-</div>
+        </div>
     </div>
 
 </section>
 <script src="~/Test.js"></script>
 <script type="text/javascript">
-    //var a = document.getElementsByTagName("a")[0];
-    //var mask = document.getElementById("mask");
-    //function ab(event) {
-    //    mask.style.display = "block";
-    //    //阻止冒泡
-    //    event = event || window.event;
-    //    if (event || event.stopPropagation()) {
-    //        event.stopPropagation();
-    //    } else {
-    //        event.cancelBubble = true;
-    //    }
-    //}
+        //var a = document.getElementsByTagName("a")[0];
+        //var mask = document.getElementById("mask");
+        //function ab(event) {
+        //    mask.style.display = "block";
+        //    //阻止冒泡
+        //    event = event || window.event;
+        //    if (event || event.stopPropagation()) {
+        //        event.stopPropagation();
+        //    } else {
+        //        event.cancelBubble = true;
+        //    }
+        //}
 
-    //document.onclick = function (event) {
-    //    event = event || window.event;
-    //    //兼容获取触动事件时被传递过来的对象
-    //    var aaa = event.target ? event.target : event.srcElement;
-    //    if (aaa.id == "mask" || aaa.id =="cancel") {
-    //        mask.style.display = "none";
-    //    }
-    //}
+        //document.onclick = function (event) {
+        //    event = event || window.event;
+        //    //兼容获取触动事件时被传递过来的对象
+        //    var aaa = event.target ? event.target : event.srcElement;
+        //    if (aaa.id == "mask" || aaa.id =="cancel") {
+        //        mask.style.display = "none";
+        //    }
+        //}
 </script>

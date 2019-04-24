@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MyCourse\**" />
     <Compile Remove="Views\新文件夹1\**" />
+    <Content Remove="MyCourse\**" />
     <Content Remove="Views\新文件夹1\**" />
+    <EmbeddedResource Remove="MyCourse\**" />
     <EmbeddedResource Remove="Views\新文件夹1\**" />
+    <None Remove="MyCourse\**" />
     <None Remove="Views\新文件夹1\**" />
   </ItemGroup>
 

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AuthorityUI.Models;
+using Authority.DomainModel;
+using Authority.Infrastructure.MyCourse;
 
 namespace AuthorityUI.Controllers
 {
@@ -16,6 +18,10 @@ namespace AuthorityUI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            var accessService = new AccessService();
+            var authors = accessService.GetAll();
+            //访问数据库，获取一个权限点列表
+            ViewData["Authors"] = authors;
             return View();
         }
         /// <summary>
@@ -29,6 +35,12 @@ namespace AuthorityUI.Controllers
         public IActionResult Test()
         {
             return View();
+        }
+        public IActionResult AddAccess(Author author)
+        {
+            var accessService = new AccessService();
+            var count = accessService.AccessAdd(author.Aname, author.Enabled);
+            return Redirect(Url.Action("Index", "Access"));
         }
     }
 }

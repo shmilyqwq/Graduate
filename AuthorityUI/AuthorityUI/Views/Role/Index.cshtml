@@ -23,7 +23,7 @@
     <!--列表-->
 
     <div class="row panel-body">
-        <a class="btn btn-default btn-sm" href="" title="添加" onclick="add()">
+        <a class="btn btn-default btn-sm"  title="添加" onclick="ab()">
             <i class="fa fa-plus"></i>&nbsp;添加
         </a>
         <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
@@ -62,24 +62,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for(int i=0; i<roles.Count; i++){
-                                 <tr>
-                                <td i class="label_check" for="checkbox-01">
-                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
-                                </td>
-                                <td>@roles[i].Rname</td>
-                                <td>@roles[i].Rdesc</td>                                
-                            </tr>
+                            @for (int i = 0; i < roles.Count; i++)
+                            {
+                                <tr>
+                                    <td i class="label_check" for="checkbox-01">
+                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
+                                    </td>
+                                    <td>@roles[i].Rid</td>
+                                    <td>@roles[i].Rname</td>
+                                    <td>@roles[i].Rdesc</td>
+                                </tr>
                             }
-                           
+
                             @*<tr>
-            <td i class="label_check" for="checkbox-01">
-                <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
-            </td>
-            <td>1</td>
-            <td>admin</td>
-            <td>管理员</td>
-        </tr>*@
+                                    <td i class="label_check" for="checkbox-01">
+                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
+                                    </td>
+                                    <td>1</td>
+                                    <td>admin</td>
+                                    <td>管理员</td>
+                                </tr>*@
                         </tbody>
                     </table>
                 </div>
@@ -108,8 +110,59 @@
             </div>
         </div>
     </div>
+
+    <!--遮罩层-->
+    <div class="mask" id="mask" style="width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);">
+      <div class="add" id="add" style=" width: 500px;
+        height: 350px;
+        background-color: #fff;
+        margin: 150px auto;">
+            <div class="col-lg-6 text-center">
+                <section class="panel">
+                    <header class="panel-heading">
+                        角色信息
+                    </header>
+                    <div class="panel-body">
+                        <div class="form">
+                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action='@Url.Action("AddRole","Role")' novalidate="novalidate">
+                                <div class="form-group ">
+                                    <label for="rname" class="control-label col-lg-2">角色名称<span class="required">*</span></label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control" id="rname" name="rname" type="text" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="rdesc" class="control-label col-lg-2">角色描述<span class="required">*</span></label>
+                                    <div class="col-lg-4">
+                                        <input class="form-control " id="rdesc" type="text" name="rdesc" required="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-4">
+                                        <button class="btn btn-primary" type="submit" onclick="">Save</button>
+                                        <button class="btn btn-default" type="button" id="cancel">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+      </div>
+    </div>
+
 </section>
-<p>
+<script src="~/Test.js"></script>
+
     <script type="text/javascript">
             //function showtext() {
             //    $("#con").attr("style", "display:;");
@@ -128,13 +181,14 @@
         }
         }
 
-        function add() {
-        @*window.open('@Url.Action("Detail","User")');*@
-        window.open('@Url.Action("Detail", "Role")', '添加', 'height=600, width=400, top=200, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no') //这句要写成一行
-        }
+        @*function add() {
+        window.open('@Url.Action("Detail","User")');
+            window.open('@Url.Action("Detail", "Role")', '添加', 'height=600, width=400, top=200, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no') //这句要写成一行
+        }*@
         function naccess() {
         window.open('@Url.Action("Apoint","Role")');
         }
+
     </script>
 
-</p>
+

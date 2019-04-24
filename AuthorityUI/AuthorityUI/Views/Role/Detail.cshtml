@@ -12,7 +12,7 @@
             </header>
             <div class="panel-body">
                 <div class="form">
-                    <form class="form-validate form-horizontal" id="feedback_form" method="get" action="" novalidate="novalidate">
+                    <form class="form-validate form-horizontal" id="feedback_form" method="get" action='@Url.Action("AddRole","Role")' novalidate="novalidate">
                         <div class="form-group ">
                             <label for="rname" class="control-label col-lg-2">角色名称<span class="required">*</span></label>
                             <div class="col-lg-4">
@@ -28,8 +28,8 @@
 
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-4">
-                                <button class="btn btn-primary" type="submit">Save</button>
-                                <button class="btn btn-default" type="button">Cancel</button>
+                                <button class="btn btn-primary" type="submit" onclick="">Save</button>
+                                <button class="btn btn-default" type="button" onclick="window.close()">Cancel</button>
                             </div>
                         </div>
                     </form>

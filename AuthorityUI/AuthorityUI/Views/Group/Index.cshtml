@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Authority.Infrastructure.MyCourse;
+@{
     ViewData["Title"] = "Home Page";
+    var teams = ViewData["Teams"] as List<Team>;
 }
 <section class="wrapper">
     <div class="text-center ">
@@ -21,14 +23,18 @@
     <!--列表-->
 
     <div class="row panel-body">
-        <a class="btn btn-default btn-sm" href="" title="添加">
-        <i class="fa fa-plus"></i>&nbsp;添加</a>
+        <a class="btn btn-default btn-sm"  title="添加" onclick="ab()">
+            <i class="fa fa-plus"></i>&nbsp;添加
+        </a>
         <a class="btn btn-default btn-sm" href="" title="修改">
-        <i class="fa fa-pencil"></i>&nbsp;修改</a>
+            <i class="fa fa-pencil"></i>&nbsp;修改
+        </a>
         <a class="btn btn-default btn-sm" href="" title="删除">
-        <i class="fa fa-minus"></i>&nbsp;删除</a>
+            <i class="fa fa-minus"></i>&nbsp;删除
+        </a>
         <a class="btn btn-default btn-sm" href="" title="分配权限点">
-        <i class="fa fa-key"></i>&nbsp;分配权限点</a>
+            <i class="fa fa-key"></i>&nbsp;分配权限点
+        </a>
     </div>
 
     <div class="row">
@@ -54,38 +60,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @for (int i = 0; i < teams.Count; i++)
+                            {
+                                <tr>
+                                    <td i class="label_check" for="checkbox-01">
+                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
+                                    </td>
+                                    <td>@teams[i].Gid</td>
+                                    <td>@teams[i].Gname</td>
+                                    <td>@teams[i].Gdesc</td>
+                                </tr>
+                            }
+                            @*<tr>
                                 <td i class="label_check" for="checkbox-01">
                                     <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
                                 </td>
                                 <td>1</td>
                                 <td>design</td>
                                 <td>设计部</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-01">
-                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox"  />
-                                </td>
-                                <td>2</td>
-                                <td>personnel</td>
-                                <td>人事部</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-02">
-                                    <input name="sample-checkbox-02" id="checkbox-02" value="2" type="checkbox" />
-                                </td>
-                                <td>3</td>
-                                <td>R&D</td>
-                                <td>研发部</td>
-                            </tr>
-                            <tr>
-                                <td i class="label_check" for="checkbox-03">
-                                    <input name="sample-checkbox-03" id="checkbox-03" value="2" type="checkbox" />
-                                </td>
-                                <td>4</td>
-                                <td>management</td>
-                                <td>管理部</td>
-                            </tr>
+                            </tr>*@
                         </tbody>
                     </table>
                 </div>
@@ -94,4 +87,54 @@
 
         </div>
     </div>
+
+    <!--遮罩层-->
+    <div class="mask" id="mask" style="width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);">
+        <div class="add" id="add" style=" width: 500px;
+        height: 350px;
+        background-color: #fff;
+        margin: 150px auto;">
+            <div class="col-lg-6 text-center">
+                <section class="panel">
+                    <header class="panel-heading">
+                        用户组信息
+                    </header>
+                    <div class="panel-body">
+                        <div class="form">
+                            <form class="form-validate form-horizontal" id="feedback_form" method="get" action='@Url.Action("AddGroup","Group")' novalidate="novalidate">
+                                <div class="form-group ">
+                                    <label for="rname" class="control-label col-lg-4">用户组名称<span class="required">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="rname" name="rname" type="text" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="rdesc" class="control-label col-lg-4">用户组描述<span class="required">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control " id="rdesc" type="text" name="rdesc" required="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-4">
+                                        <button class="btn btn-primary" type="submit" onclick="">Save</button>
+                                        <button class="btn btn-default" type="button" id="cancel ">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script src="~/Test.js"></script>
