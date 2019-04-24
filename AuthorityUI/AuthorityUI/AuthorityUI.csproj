@@ -26,8 +26,6 @@
     <Content Remove="Views\Access\Detail - 复制.cshtml" />
     <Content Remove="Views\Access\Index - 复制.cshtml" />
     <Content Remove="Views\Access\Xin.cshtml" />
-    <Content Remove="Views\Group\Detail - 复制%282%29.cshtml" />
-    <Content Remove="Views\Group\Detail - 复制.cshtml" />
     <Content Remove="Views\User\Login.cshtml" />
   </ItemGroup>
 

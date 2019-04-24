@@ -51,7 +51,7 @@ namespace Authority.Infrastructure.MyCourse
 
                 entity.Property(e => e.Enabled)
                     .HasColumnName("ENABLED")
-                    .HasColumnType("tinyint(1)");
+                    .HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Grac>(entity =>

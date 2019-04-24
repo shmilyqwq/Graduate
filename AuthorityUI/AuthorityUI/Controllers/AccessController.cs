@@ -39,7 +39,7 @@ namespace AuthorityUI.Controllers
         public IActionResult AddAccess(Author author)
         {
             var accessService = new AccessService();
-            var count = accessService.AccessAdd(author.Aname, author.Enabled);
+            var count = accessService.AccessAdd(author.Aname,author.Enabled);
             return Redirect(Url.Action("Index", "Access"));
         }
     }
