@@ -35,6 +35,15 @@ namespace Authority.DomainModel
             }
             return count;
         }
+        public List<User> GetUserByName(string uname)
+        {
+            List<User> users=null;
+            using (var dbContext = new AuthorityContext())
+            {
+                users = dbContext.User.Where(x=>x.Uname==uname).ToList();
+            }
+            return users;
+        }
         #endregion
     }
 }

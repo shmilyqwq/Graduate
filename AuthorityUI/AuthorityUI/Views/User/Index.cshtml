@@ -57,7 +57,10 @@
                 <ul class="nav top-menu">
                     <li>
                         <form class="navbar-form">
-                            <input class="form-control" placeholder="Email" type="text">
+                            <lable for="uname">
+                                <input class="form-control" placeholder="用户名称" type="text" id="uname"  name="uname" onkeydown="entersearch()">
+                                <a class="" href='@Url.Action("GetUserByName", "User")'></a>
+                            </lable>
                         </form>
                     </li>
                 </ul>
@@ -214,7 +217,19 @@
             //    document.getElementById("show").style.display = "none";
             //    document.getElementById("hide").style.display = "block";
 
-            //}            
+            //} 
+            function search() {
+                var $uname = $("uname").val();
+                window.location.href = "@Url.Action("GetUserByName","User")" + $uname;
+            }
+            function entersearch() {
+                var event = window.event || arguments.callee.caller.arguments[0];
+                if (event == uname) {
+                    search();
+                    //document.getElementById("uname").style.display = "block";
+                    //document.getElementById("hide").style.display = "none";
+                }
+            }
 
         </script>
 

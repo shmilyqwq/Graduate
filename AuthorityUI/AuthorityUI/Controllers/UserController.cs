@@ -36,11 +36,7 @@ namespace AuthorityUI.Controllers
         public IActionResult Detail()
         {
             return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
+        }        
         /// <summary>
         /// 分配角色
         /// </summary>
@@ -62,6 +58,13 @@ namespace AuthorityUI.Controllers
         {
             var userService = new UserService();
             var count = userService.UserAdd(user.Uname, user.Email);
+            return Redirect(Url.Action("Index", "User"));
+        }
+        public IActionResult GetUserByName(User user)
+        {
+            var userService = new UserService();
+            var users = userService.GetUserByName(user.Uname);
+            ViewData["Users"] = users;
             return Redirect(Url.Action("Index", "User"));
         }
     }

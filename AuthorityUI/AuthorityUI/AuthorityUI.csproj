@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Remove="Controllers\Access.cs" />
     <Compile Remove="Controllers\UserController - 复制.cs" />
+    <Compile Remove="Views\User\Show.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
