@@ -60,6 +60,12 @@ namespace AuthorityUI.Controllers
             var count = userService.UserAdd(user.Uname, user.Email);
             return Redirect(Url.Action("Index", "User"));
         }
+        public IActionResult DelUser(User user)
+        {
+            var userService = new UserService();
+            var users = userService.UserDel(user.Uid);
+            return Redirect(Url.Action("Index", "User"));
+        }
         public IActionResult GetUserByName(User user)
         {
             var userService = new UserService();

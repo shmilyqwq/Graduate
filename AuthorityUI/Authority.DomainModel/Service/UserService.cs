@@ -35,6 +35,22 @@ namespace Authority.DomainModel
             }
             return count;
         }
+
+        public string UserDel(int uid)
+        {
+            User user = new User()
+            {
+                Uid = uid,
+            };
+            //标记为删除状态
+            using (var dbContext = new AuthorityContext())
+            {
+                dbContext.User.Attach(user);
+                dbContext.User.Remove(user);
+                dbContext.SaveChanges();
+                return "删除成功！";
+            }
+        }
         public List<User> GetUserByName(string uname)
         {
             List<User> users=null;

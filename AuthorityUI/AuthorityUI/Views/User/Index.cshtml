@@ -1,8 +1,8 @@
 ﻿
 @using Authority.Infrastructure.MyCourse;
-    @{
-        var users = ViewData["Users"] as List<User>;
-    }
+@{
+    var users = ViewData["Users"] as List<User>;
+}
 <body>
     <section class="wrapper panel">
         <div class="text-center ">
@@ -56,10 +56,10 @@
                 <!--  search form start 搜索框-->
                 <ul class="nav top-menu">
                     <li>
-                        <form class="navbar-form">
+                        <form class="navbar-form" action="@Url.Action("GetUserByName", "User")">
                             <lable for="uname">
-                                <input class="form-control" placeholder="用户名称" type="text" id="uname"  name="uname" onkeydown="entersearch()">
-                                <a class="" href='@Url.Action("GetUserByName", "User")'></a>
+                                <input class="form-control" placeholder="用户名称" type="text" id="uname" name="uname" onkeydown="entersearch()">
+                                @*<a class="" href='@Url.Action("GetUserByName", "User")'></a>*@
                             </lable>
                         </form>
                     </li>
@@ -73,7 +73,7 @@
                 <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
                     <i class="fa fa-pencil"></i>&nbsp;修改
                 </a>
-                <a class="btn btn-default btn-sm" href="" title="删除" id="btn2" onClick="delcfm()">
+                <a class="btn btn-default btn-sm" href='' title="删除" id="btn2" onClick="delcfm()">
                     <i class="fa fa-minus"></i>&nbsp;删除
                 </a>
                 <a class="btn btn-default btn-sm" href="" title="分配角色" onclick="nrole()">
@@ -105,7 +105,7 @@
                                 <thead>
                                     <tr>
                                         <th i class=" label_check">
-                                            <input name="a1lSel" type="checkbox" onclick="All(this)" value="全选" />全选
+                                            <input name="sample-checkbox-01" type="checkbox" onclick="All(this)" value="全选" />全选
                                         </th>
                                         <th>用户ID</th>
                                         <th>用户名称</th>
@@ -113,33 +113,39 @@
                                         <th>角色</th>
                                         <th>邮箱</th>
                                         <th>密码</th>
+                                        <th>查看</th>
+                                        <th>删除</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for (int i = 0; i < users.Count; i++)
                                     {
                                         <tr>
-                                            <td i class="label_check" for="checkbox-03">
-                                                <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
+                                            <td i class="label_check" for="uid">
+                                                <input name="sample-checkbox-01" id="@users[i].Uid" value="2" type="checkbox" />
                                             </td>
                                             <td>@users[i].Uid</td>
                                             <td>@users[i].Uname</td>
+                                            <td>&nbsp;&nbsp;</td>
+                                            <td>&nbsp;&nbsp;</td>
                                             <td>@users[i].Email</td>
                                             <td>000000</td>
+                                            <td><a class="btn btn-success" href="" title="" id="show">查看</a></td>
+                                            <td><a class="btn btn-danger" href="" title="" id="delete" onclick="toshow(@users[i].Uid)">删除</a></td>
                                         </tr>
                                     }
-                                    
+
                                     @*<tr>
-                                        <td i class="label_check" for="checkbox-04">
-                                            <input name="sample-checkbox-01" id="checkbox-04" value="2" type="checkbox" />
-                                        </td>
-                                        <td>1004</td>
-                                        <td>Rose</td>
-                                        <td>研发部</td>
-                                        <td>经理</td>
-                                        <td>rsdje@162.com</td>
-                                        <td>000000</td>
-                                    </tr>*@
+                                            <td i class="label_check" for="checkbox-04">
+                                                <input name="sample-checkbox-01" id="checkbox-04" value="2" type="checkbox" />
+                                            </td>
+                                            <td>1004</td>
+                                            <td>Rose</td>
+                                            <td>研发部</td>
+                                            <td>经理</td>
+                                            <td>rsdje@162.com</td>
+                                            <td>000000</td>
+                                        </tr>*@
 
                                 </tbody>
                             </table>
@@ -173,7 +179,7 @@
     </section>
 
 
-        <script type="text/javascript">
+    <script type="text/javascript">
             function All(ch) {
                         var sda = ch.checked;
                         var char = document.getElementsByName("sample-checkbox-01");
@@ -181,11 +187,40 @@
                     char[i].checked = sda;
                 }
             }
-        function delcfm() {
-        if (!confirm("确认要删除？")) {
-        window.event.returnValue = false;
+
+        function toshow(uid)
+        {
+            if (confirm("确认要删除？")) {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("DelUser","User")',
+                    data: { "uid": uid, },
+                    dataType: 'JSON',
+                    success: function () {
+                    }
+                });
+            }
         }
-        }
+
+            //function delcfm() {
+            //    if (!confirm("确认要删除？")) {
+            //        var todel = [];
+            //        var j =0;
+            //        var tab = document.getElementsByName('sample-checkbox-01');
+            //        for (var i = 0; i < tab.length; i++) {
+            //            if (tab[i].checked) {
+            //                todel[j] = tab[i].id;
+            //                j++;
+            //            }
+            //            window.event.returnValue = false;
+            //        }
+            //    }
+            //}
+            //function delcfm() {
+            //    if (!confirm("确认要删除？")) {
+            //        window.event.returnValue = false;
+            //    }
+            //}
 
         @*function add() {
         window.open('@Url.Action("Detail","User")');
@@ -217,10 +252,10 @@
             //    document.getElementById("show").style.display = "none";
             //    document.getElementById("hide").style.display = "block";
 
-            //} 
+            //}
             function search() {
-                var $uname = $("uname").val();
-                window.location.href = "@Url.Action("GetUserByName","User")" + $uname;
+                var url = '@Url.Action("GetUserByName","User")' + '?uname' + uname;
+                location.href = url;
             }
             function entersearch() {
                 var event = window.event || arguments.callee.caller.arguments[0];
@@ -231,7 +266,50 @@
                 }
             }
 
-        </script>
+    </script>
 
 </body>
 
+@*function seltAll(){
+            var chckBoxSign = document.getElementById("checkbox");       //ckb 全选/反选的选择框id
+    var chckBox = document.getElementsByName("chckBox");    //所有的选择框name都是chckBox
+    var num = chckBox.length;
+    if(chckBoxSign.checked){
+        for (var i = 0; i < num; i++){
+            chckBox[i].checked = true;
+            }
+    }else{
+        for (var i = 0; i < num; i++){
+            chckBox[i].checked = false;
+            }
+        }
+    }
+
+        function delcfm(){
+    var chckBox = document.getElementsByName("chckBox");
+    var num = chckBox.length;
+    var ids = null;
+            for (var i = 0; i < num; i++){
+                if (chckBox[i].checked){
+                    ids += chckBox[i].value + ",";
+        }
+    }
+    if(ids!=""){
+        if(window.confirm("确定删除所选记录？")){
+            $.ajax( {
+                type : "post",
+                url : '@Url.Action("UserDel","User")' + ids, //要自行删除的action
+                dataType : 'json',
+                success : function(data) {
+                    alert("删除成功");
+                    window.location.href = "channel-no.action" ;
+                },
+                error : function(data) {
+                    alert("系统错误，删除失败");
+                }
+            });
+        }
+    }else{
+        alert("请选择要删除的记录");
+        }
+    }*@  
