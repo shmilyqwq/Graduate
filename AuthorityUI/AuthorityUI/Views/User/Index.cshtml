@@ -56,7 +56,7 @@
                 <!--  search form start 搜索框-->
                 <ul class="nav top-menu">
                     <li>
-                        <form class="navbar-form" action="@Url.Action("GetUserByName", "User")">
+                        <form id="formSearch" class="navbar-form" action="@Url.Action("Index", "User")">
                             <lable for="uname">
                                 <input class="form-control" placeholder="用户名称" type="text" id="uname" name="uname" onkeydown="entersearch()">
                                 @*<a class="" href='@Url.Action("GetUserByName", "User")'></a>*@
@@ -113,26 +113,30 @@
                                         <th>角色</th>
                                         <th>邮箱</th>
                                         <th>密码</th>
-                                        <th>查看</th>
-                                        <th>删除</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for (int i = 0; i < users.Count; i++)
                                     {
-                                        <tr>
-                                            <td i class="label_check" for="uid">
-                                                <input name="sample-checkbox-01" id="@users[i].Uid" value="2" type="checkbox" />
-                                            </td>
-                                            <td>@users[i].Uid</td>
-                                            <td>@users[i].Uname</td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>&nbsp;&nbsp;</td>
-                                            <td>@users[i].Email</td>
-                                            <td>000000</td>
-                                            <td><a class="btn btn-success" href="" title="" id="show">查看</a></td>
-                                            <td><a class="btn btn-danger" href="" title="" id="delete" onclick="toshow(@users[i].Uid)">删除</a></td>
-                                        </tr>
+                                    <tr>
+                                        <td i class="label_check" for="uid">
+                                            <input name="sample-checkbox-01" id="@users[i].Uid" value="2" type="checkbox" />
+                                        </td>
+                                        <td>@users[i].Uid</td>
+                                        <td>@users[i].Uname</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>@users[i].Email</td>
+                                        <td>000000</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-primary" href="#"><i class="icon_search_alt">查看</i></a>
+                                                <a class="btn btn-success" href="#"><i class="icon_pencil_alt">编辑</i></a>
+                                                <a class="btn btn-danger" href="" id="delete" onclick="toshow(@users[i].Uid)"><i class="icon_close_alt2">删除</i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     }
 
                                     @*<tr>
@@ -201,31 +205,7 @@
                 });
             }
         }
-
-            //function delcfm() {
-            //    if (!confirm("确认要删除？")) {
-            //        var todel = [];
-            //        var j =0;
-            //        var tab = document.getElementsByName('sample-checkbox-01');
-            //        for (var i = 0; i < tab.length; i++) {
-            //            if (tab[i].checked) {
-            //                todel[j] = tab[i].id;
-            //                j++;
-            //            }
-            //            window.event.returnValue = false;
-            //        }
-            //    }
-            //}
-            //function delcfm() {
-            //    if (!confirm("确认要删除？")) {
-            //        window.event.returnValue = false;
-            //    }
-            //}
-
-        @*function add() {
-        window.open('@Url.Action("Detail","User")');
-        window.open('@Url.Action("Detail", "User")', '添加', 'height=600, width=400, top=200, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no') //这句要写成一行
-        }*@
+            
         function update() {
         window.open('@Url.Action("Detail","User")');
         }
@@ -239,36 +219,34 @@
         window.open('@Url.Action("Apoint","User")');
             }
             function add() {
-                //var myId = document.getElementById("show");
-                //if (myId.style.display == "none") {
-                //    myId.style.display = "block";
-                //    document.getElementById("hide").style.display = "none";
-                //}
                 document.getElementById("show").style.display = "block";
                 document.getElementById("hide").style.display = "none";
 
                     }
-            //function que() {
-            //    document.getElementById("show").style.display = "none";
-            //    document.getElementById("hide").style.display = "block";
-
-            //}
-            function search() {
+            @*function search() {
                 var url = '@Url.Action("GetUserByName","User")' + '?uname' + uname;
                 location.href = url;
+            }*@
+        function entersearch() {
+           
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event != null && event.code == "Enter") {
+                var form = document.getElementById("formSearch");
+                form.submit();
+               // search();
+                //document.getElementById("uname").style.display = "block";
+                //document.getElementById("hide").style.display = "none";
             }
-            function entersearch() {
-                var event = window.event || arguments.callee.caller.arguments[0];
-                if (event == uname) {
-                    search();
-                    //document.getElementById("uname").style.display = "block";
-                    //document.getElementById("hide").style.display = "none";
-                }
-            }
+        }
 
     </script>
 
 </body>
+
+ @*function que() {
+    document.getElementById("show").style.display = "none";
+    document.getElementById("hide").style.display = "block";
+ }*@
 
 @*function seltAll(){
             var chckBoxSign = document.getElementById("checkbox");       //ckb 全选/反选的选择框id
@@ -312,4 +290,27 @@
     }else{
         alert("请选择要删除的记录");
         }
-    }*@  
+    }*@
+@*function entersearch() {
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event == "uname") {
+                //遍历移除b标签
+                $(".changestyle").each(function () {
+                    var xx = $(this).html();
+                    $(this).replaceWith(xx);
+                });
+                var str = $("tbody").html();//整个用户信息
+                var txt = $("uname").val();//文本框
+                if ($.trim(txt) != "") {
+                    var re = "<b class='changestyle'>
+    " + txt + "<b>
+        ";
+        var nn = str.replace(new ReExp(txt, "gm"), re);
+        $("#tbody").html(nn);
+        $(".card").hide().filter(":contains('" + txt + "')").show();
+        }
+        else {
+        $(".card").show;
+        }
+        }
+        }*@

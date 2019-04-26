@@ -19,14 +19,22 @@ namespace AuthorityUI.Controllers
         public IActionResult Index(string uname, string email)
         {
             var userService = new UserService();
-            var users = userService.GetAll();
+            if (uname == null)
+            {
+                var users = userService.GetAll();
+                ViewData["Users"] = users;
+            }
+            else
+            {
+                var users = userService.GetUserByName(uname);
+                ViewData["Users"] = users;
+            }                       
             //访问数据库，获取一个用户列表
             //var users = new List<User>()
             //{
             //    new User(){Uid=1001,Uname="alam",Email="qjwew@163.com",Password="000000"},
             //    new User(){Uid=1002,Uname="scff",Email="xascz@163.com",Password="000000"}
-            //};
-            ViewData["Users"] = users;
+            //};            
             return View();
         }
         /// <summary>
@@ -53,7 +61,10 @@ namespace AuthorityUI.Controllers
         {
             return View();
         }
-
+        public IActionResult Show()
+        {
+            return View();
+        }
         public IActionResult AddUser(User user)
         {
             var userService = new UserService();
@@ -72,6 +83,6 @@ namespace AuthorityUI.Controllers
             var users = userService.GetUserByName(user.Uname);
             ViewData["Users"] = users;
             return Redirect(Url.Action("Index", "User"));
-        }
+        }        
     }
 }

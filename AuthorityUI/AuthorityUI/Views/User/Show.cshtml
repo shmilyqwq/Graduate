@@ -30,21 +30,18 @@
                                 <th>密码</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                            
                             @for (int i = 0; i < users.Count; i++)
-                            {
-                                if (id== )
-                                {
-                                    <tr>
-                                        <td i class="label_check" for="checkbox-03">
-                                            <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
-                                        </td>
-                                        <td>@users[i].Uid</td>
-                                        <td>@users[i].Uname</td>
-                                        <td>@users[i].Email</td>
-                                        <td>000000</td>
-                                    </tr>
-                                }
+                            {                               
+                            <tr>
+                                <td i class="label_check" for="uname">
+                                    <input name="sample-checkbox-01" id="checkbox-03" value="2" type="checkbox" />
+                                </td>
+                                <td>@users[i].Uid</td>
+                                <td>@users[i].Uname</td>
+                                <td>@users[i].Email</td>
+                                <td>000000</td>
+                            </tr>
                             }
                         </tbody>
                     </table>
