@@ -1,7 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Authority.Infrastructure.MyCourse;
+@model User
+@{
+    var user = Model;
+}
+<!DOCTYPE html>
 <html>
 
-<head>   
+<head>
     <title>用户添加</title>
 </head>
 
@@ -17,40 +22,29 @@
                 </header>
                 <div class="panel-body">
                     <div class="form">
-                        <form class="form-validate form-horizontal" id="feedback_form" method="get" action="" novalidate="novalidate">
+                        <form id="formSearch" class="form-validate form-horizontal" method="get" action="@Url.Action("UpdateUser","User")" novalidate="novalidate">
+                            <div class="form-group ">
+                                <label for="uid" class="control-label col-lg-2">用户Id <span class="required">*</span></label>
+                                <div class="col-lg-10">
+                                    <input class="form-control" value="@user.Uid" minlength="5" type="text" required="" disabled />
+                                    <input id="uid" value="@user.Uid" name="uid" type="hidden" />
+                                </div>
+                            </div>
                             <div class="form-group ">
                                 <label for="uname" class="control-label col-lg-2">用户名称 <span class="required">*</span></label>
                                 <div class="col-lg-10">
-                                    <input class="form-control" id="uname" name="uname" minlength="5" type="text" required="">
+                                    <input class="form-control" id="uname" value="@user.Uname" name="uname" minlength="5" type="text" required="">
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <label for="email" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
                                 <div class="col-lg-10">
-                                    <input class="form-control " id="email" type="email" name="email" required="">
+                                    <input class="form-control " id="email" value="@user.Email" type="email" name="email" required="">
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label for="password" class="control-label col-lg-2">用户密码</label>
-                                <div class="col-lg-10">
-                                    <input class="form-control " id="curl" type="password" name="password">
-                                </div>
-                            </div>
-                            @*<div class="form-group ">
-                                    <label for="cname" class="control-label col-lg-2">Subject <span class="required">*</span></label>
-                                    <div class="col-lg-10">
-                                        <input class="form-control" id="subject" name="subject" minlength="5" type="text" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label for="ccomment" class="control-label col-lg-2">Feedback</label>
-                                    <div class="col-lg-10">
-                                        <textarea class="form-control " id="ccomment" name="comment" required=""></textarea>
-                                    </div>
-                                </div>*@
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <button class="btn btn-primary" type="submit" onclick="change()">Save</button>
                                     <button class="btn btn-default" type="button">Cancel</button>
                                 </div>
                             </div>
@@ -61,5 +55,15 @@
             </section>
         </div>
     </section>
+    <script type="text/javascript">
+        @*function change(uid) {
+            var url =@Url.Action("Detail", "User")+'?uid=' + uid;
+            location.href = url;
+        }*@
+        function change() {
+            var form = document.getElementById("formSearch");
+            form.submit();
+        }
+    </script>
 </body>
 </html>

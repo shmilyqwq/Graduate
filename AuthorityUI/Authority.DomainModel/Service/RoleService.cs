@@ -25,8 +25,7 @@ namespace Authority.DomainModel
             var role = new Role()
             {
                 Rname = rname,
-                Rdesc = rdesc,
-                
+                Rdesc = rdesc,                
             };
             using (var dbContext = new AuthorityContext())
             {

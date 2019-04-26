@@ -45,11 +45,11 @@ namespace Authority.DomainModel
             //标记为删除状态
             using (var dbContext = new AuthorityContext())
             {
-                dbContext.User.Attach(user);
+                user = dbContext.User.FirstOrDefault(x => x.Uid == uid);
                 dbContext.User.Remove(user);
                 dbContext.SaveChanges();
-                return "删除成功！";
             }
+            return "删除成功！";
         }
         public List<User> GetUserByName(string uname)
         {
@@ -59,6 +59,29 @@ namespace Authority.DomainModel
                 users = dbContext.User.Where(x=>x.Uname==uname).ToList();
             }
             return users;
+        }
+        public User GetUserById(int uid)
+        {
+            User user = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                user = dbContext.User.FirstOrDefault(x => x.Uid == uid);
+            }
+            return user;
+        }
+        public string UpdateUser(int uid,string uname,string email)
+        {            
+    
+            //标记为修改状态
+            using (var dbContext = new AuthorityContext())
+            {
+                var user = dbContext.User.FirstOrDefault(x => x.Uid == uid);
+                user.Uname = uname;
+                user.Email = email;
+                dbContext.User.Update(user);
+                dbContext.SaveChanges();
+            }
+            return "修改成功！";
         }
         #endregion
     }

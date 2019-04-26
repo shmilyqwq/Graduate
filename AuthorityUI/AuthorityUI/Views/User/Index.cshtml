@@ -131,8 +131,7 @@
                                         <td>000000</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary" href="#"><i class="icon_search_alt">查看</i></a>
-                                                <a class="btn btn-success" href="#"><i class="icon_pencil_alt">编辑</i></a>
+                                                <a class="btn btn-success" href='/User/Detail?uid=@users[i].Uid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
                                                 <a class="btn btn-danger" href="" id="delete" onclick="toshow(@users[i].Uid)"><i class="icon_close_alt2">删除</i></a>
                                             </div>
                                         </td>
@@ -201,14 +200,14 @@
                     data: { "uid": uid, },
                     dataType: 'JSON',
                     success: function () {
+                        alert("删除成功");
+                        window.location.href = "channel-no.action";
                     }
                 });
             }
         }
             
-        function update() {
-        window.open('@Url.Action("Detail","User")');
-        }
+        
         function nrole() {
         window.open('@Url.Action("Role","User")');
         }
@@ -237,8 +236,7 @@
                 //document.getElementById("uname").style.display = "block";
                 //document.getElementById("hide").style.display = "none";
             }
-        }
-
+        }        
     </script>
 
 </body>

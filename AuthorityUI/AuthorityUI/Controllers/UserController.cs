@@ -41,9 +41,11 @@ namespace AuthorityUI.Controllers
         /// 显示用户明细信息
         /// </summary>
         /// <returns></returns>
-        public IActionResult Detail()
+        public IActionResult Detail(User user)
         {
-            return View();
+            var userService = new UserService();
+            var model = userService.GetUserById(user.Uid);
+            return View(model);
         }        
         /// <summary>
         /// 分配角色
@@ -77,12 +79,19 @@ namespace AuthorityUI.Controllers
             var users = userService.UserDel(user.Uid);
             return Redirect(Url.Action("Index", "User"));
         }
+
         public IActionResult GetUserByName(User user)
         {
             var userService = new UserService();
             var users = userService.GetUserByName(user.Uname);
             ViewData["Users"] = users;
             return Redirect(Url.Action("Index", "User"));
-        }        
+        } 
+        public IActionResult UpdateUser(User user)
+        {
+            var userService = new UserService();
+            var ab = userService.UpdateUser(user.Uid,user.Uname, user.Email);
+            return Redirect(Url.Action("Index", "User"));
+        }
     }
 }
