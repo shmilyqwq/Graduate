@@ -34,6 +34,30 @@ namespace Authority.DomainModel
             }
             return count;
         }
+        public string RoleDelete(int rid)
+        {
+            Role role = new Role()
+            {
+                Rid = rid,
+            };
+            //标记为删除状态
+            using (var dbContext = new AuthorityContext())
+            {
+                role = dbContext.Role.FirstOrDefault(x => x.Rid == rid);
+                dbContext.Role.Remove(role);
+                dbContext.SaveChanges();
+            }
+            return "删除成功！";
+        }
+        public List<Role> GetRoleByName(string rname)
+        {
+            List<Role> roles = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                roles = dbContext.Role.Where(x => x.Rname == rname).ToList();
+            }
+            return roles;
+        }
         #endregion
     }
 }
