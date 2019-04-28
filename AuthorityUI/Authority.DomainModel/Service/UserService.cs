@@ -36,7 +36,7 @@ namespace Authority.DomainModel
             return count;
         }
 
-        public string UserDel(int uid)
+        public User UserDel(int uid)
         {
             User user = new User()
             {
@@ -49,7 +49,7 @@ namespace Authority.DomainModel
                 dbContext.User.Remove(user);
                 dbContext.SaveChanges();
             }
-            return "删除成功！";
+            return user;
         }
         public List<User> GetUserByName(string uname)
         {

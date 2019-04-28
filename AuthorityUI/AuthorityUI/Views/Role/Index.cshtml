@@ -12,8 +12,10 @@
         <!--  search form start 搜索框-->
         <ul class="nav top-menu">
             <li>
-                <form class="navbar-form">
-                    <input class="form-control" placeholder="角色名称" type="text">
+                <form class="navbar-form" id="formSearch" action="@Url.Action("Index", "Role")">
+                    <lable for="rname">
+                        <input class="form-control" placeholder="角色名称" type="text"id="rname" name="rname" onkeydown="entersearch()">
+                    </lable>
                 </form>
             </li>
         </ul>
@@ -185,16 +187,27 @@
         function toshow(rid)
         {
             if (confirm("确认要删除？")) {
-                $.ajax({
+                @*$.ajax({
                     type: "post",
                     url: '@Url.Action("RoleDelete", "Role")',
                     data: { "rid": rid, },
-                    dataType: 'JSON',
-                    success: function () {                        
-                    }
-                });
+                    dataType: 'JSON',                    
+                    success: function () {
+                    }                     
+                });*@
+                window.location.href = '@Url.Action("RoleDelete", "Role")';
+                var form = document.getElementById("formSearch");
+                form.submit();
             }
         }
+        function entersearch() {
+
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event != null && event.code == "Enter") {
+                var form = document.getElementById("formSearch");
+                form.submit();
+            }
+        }        
         //function delcfm() {
         //if (!confirm("确认要删除？")) {
         //window.event.returnValue = false;

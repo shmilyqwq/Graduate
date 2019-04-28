@@ -38,5 +38,11 @@ namespace AuthorityUI.Controllers
             var count = groupService.GroupAdd(team.Gname, team.Gdesc);
             return Redirect(Url.Action("Index", "Group"));//将数据返回主页列表
         }
+        public IActionResult DeleteGroup(Team team)
+        {
+            var teamService = new GroupService();
+            var teams = teamService.GroupDelete(team.Gid);
+            return Redirect(Url.Action("Index", "Team"));
+        }
     }
 }

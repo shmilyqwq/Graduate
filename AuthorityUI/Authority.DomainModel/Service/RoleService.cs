@@ -34,7 +34,7 @@ namespace Authority.DomainModel
             }
             return count;
         }
-        public string RoleDelete(int rid)
+        public Role RoleDelete(int rid)
         {
             Role role = new Role()
             {
@@ -47,7 +47,7 @@ namespace Authority.DomainModel
                 dbContext.Role.Remove(role);
                 dbContext.SaveChanges();
             }
-            return "删除成功！";
+            return role;
         }
         public List<Role> GetRoleByName(string rname)
         {
@@ -57,6 +57,29 @@ namespace Authority.DomainModel
                 roles = dbContext.Role.Where(x => x.Rname == rname).ToList();
             }
             return roles;
+        }
+        public Role GetRoleById(int rid)
+        {
+            Role role = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                role = dbContext.Role.FirstOrDefault(x => x.Rid == rid);
+            }
+            return role;
+        }
+        public string UpdateRole(int rid, string rname, string rdesc)
+        {
+
+            //标记为修改状态
+            using (var dbContext = new AuthorityContext())
+            {
+                var role = dbContext.Role.FirstOrDefault(x => x.Rid == rid);
+                role.Rname = rname;
+                role.Rdesc = rdesc;
+                dbContext.Role.Update(role);
+                dbContext.SaveChanges();
+            }
+            return "修改成功！";
         }
         #endregion
     }

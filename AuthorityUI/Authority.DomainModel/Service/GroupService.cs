@@ -33,6 +33,21 @@ namespace Authority.DomainModel
             }
             return count;
         }
+        public Team GroupDelete(int gid)
+        {
+            Team team = new Team()
+            {
+                Gid = gid,
+            };
+            //标记为删除状态
+            using (var dbContext = new AuthorityContext())
+            {
+                team = dbContext.Team.FirstOrDefault(x => x.Gid == gid);
+                dbContext.Team.Remove(team);
+                dbContext.SaveChanges();
+            }
+            return team;
+        }
         #endregion
     }
 }

@@ -52,24 +52,33 @@
                     <table class="table bootstrap-datatable users">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th i class=" label_check">
+                                    <input name="a1lSel" type="checkbox" onclick="All(this)" value="全选" />全选
+                                </th>
                                 <th>用户组ID</th>
                                 <th>用户组名称</th>
                                 @* <th>父节点</th>*@
                                 <th>用户组描述</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for (int i = 0; i < teams.Count; i++)
                             {
-                                <tr>
-                                    <td i class="label_check" for="checkbox-01">
-                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
-                                    </td>
-                                    <td>@teams[i].Gid</td>
-                                    <td>@teams[i].Gname</td>
-                                    <td>@teams[i].Gdesc</td>
-                                </tr>
+                            <tr>
+                                <td i class="label_check" for="checkbox-01">
+                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" />
+                                </td>
+                                <td>@teams[i].Gid</td>
+                                <td>@teams[i].Gname</td>
+                                <td>@teams[i].Gdesc</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-success" href='/Group/Detail?gid=@teams[i].Gid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
+                                        <a class="btn btn-danger" href="" id="delete" onclick="toshow(@teams[i].Gid)"><i class="icon_close_alt2">删除</i></a>
+                                    </div>
+                                </td>
+                            </tr>
                             }
                             @*<tr>
                                 <td i class="label_check" for="checkbox-01">
@@ -138,3 +147,40 @@
 </section>
 
 <script src="~/Test.js"></script>
+<script type="text/javascript">
+            //function showtext() {
+            //    $("#con").attr("style", "display:;");
+            //}
+
+                function All(ch) {
+                        var sda = ch.checked;
+                        var char = document.getElementsByName("sample-checkbox-01");
+                        for(var i in char){
+                    char[i].checked = sda;
+                }
+        }
+        function toshow(gid)
+        {
+            if (confirm("确认要删除？")) {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GroupDelete", "Group")',
+                    data: { "gid": gid, },
+                    dataType: 'JSON',
+                    success: function () {
+                    }
+                });
+                window.location.href = '@Url.Action("GroupDelete", "Group")';
+                var form = document.getElementById("formSearch");
+                form.submit();
+            }
+        }
+        function entersearch() {
+
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event != null && event.code == "Enter") {
+                var form = document.getElementById("formSearch");
+                form.submit();
+            }
+    }
+</script>

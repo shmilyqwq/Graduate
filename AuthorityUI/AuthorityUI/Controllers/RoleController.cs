@@ -36,9 +36,11 @@ namespace AuthorityUI.Controllers
         /// 显示角色明细信息
         /// </summary>
         /// <returns></returns>
-        public IActionResult Detail()
+        public IActionResult Detail(Role role)
         {
-            return View();
+            var roleService = new RoleService();
+            var model = roleService.GetRoleById(role.Rid);
+            return View(model);
         }
         public IActionResult Apoint()
         {
@@ -54,6 +56,12 @@ namespace AuthorityUI.Controllers
         {
             var roleService = new RoleService();
             var roles = roleService.RoleDelete(role.Rid);
+            return Redirect(Url.Action("Index", "Role"));
+        }
+        public IActionResult UpdateRole(Role role)
+        {
+            var roleService = new RoleService();
+            var ab = roleService.UpdateRole(role.Rid, role.Rname, role.Rdesc);
             return Redirect(Url.Action("Index", "Role"));
         }
     }
