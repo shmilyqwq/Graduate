@@ -16,21 +16,33 @@ namespace AuthorityUI.Controllers
         /// 显示用户组列表信息
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(string gname,string gdesc)
         {
             var groupService = new GroupService();
-            var teams = groupService.GetAll();
-            //访问数据库，获取一个用户组列表
-            ViewData["Teams"] = teams;
+            if (gname == null)
+            {
+                var teams = groupService.GetAll();
+                //访问数据库，获取一个用户组列表
+                ViewData["Teams"] = teams;
+            }
+            else
+            {
+                var teams = groupService.GetGroupByName(gname);
+                //访问数据库，获取一个用户组列表
+                ViewData["Teams"] = teams;
+            }
+            
             return View();
         }
         /// <summary>
         /// 显示用户组明细信息
         /// </summary>
         /// <returns></returns>
-        public IActionResult Detail()
+        public IActionResult Detail(Team team)
         {
-            return View();
+            var groupService = new GroupService();
+            var model = groupService.GetGroupById(team.Gid);
+            return View(model);
         }
         public IActionResult AddGroup(Team team)
         {
@@ -40,9 +52,15 @@ namespace AuthorityUI.Controllers
         }
         public IActionResult DeleteGroup(Team team)
         {
-            var teamService = new GroupService();
-            var teams = teamService.GroupDelete(team.Gid);
-            return Redirect(Url.Action("Index", "Team"));
+            var groupService = new GroupService();
+            var teams = groupService.GroupDelete(team.Gid);
+            return Redirect(Url.Action("Index", "Group"));
+        }
+        public IActionResult UpdateGroup(Team team)
+        {
+            var groupService = new GroupService();
+            var ab = groupService.UpdateGroup(team.Gid, team.Gname, team.Gdesc);
+            return Redirect(Url.Action("Index", "Group"));
         }
     }
 }

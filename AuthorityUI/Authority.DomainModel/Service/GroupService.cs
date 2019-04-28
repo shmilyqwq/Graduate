@@ -48,6 +48,38 @@ namespace Authority.DomainModel
             }
             return team;
         }
+        public List<Team> GetGroupByName(string ganme)
+        {
+            List<Team> teams = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                teams = dbContext.Team.Where(x => x.Gname == ganme).ToList();
+            }
+            return teams;
+        }
+        public Team GetGroupById(int gid)
+        {
+            Team team = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                team = dbContext.Team.FirstOrDefault(x => x.Gid == gid);
+            }
+            return team;
+        }
+        public string UpdateGroup(int gid, string gname, string gdesc)
+        {
+
+            //标记为修改状态
+            using (var dbContext = new AuthorityContext())
+            {
+                var team = dbContext.Team.FirstOrDefault(x => x.Gid == gid);
+                team.Gname = gname;
+                team.Gdesc = gdesc;
+                dbContext.Team.Update(team);
+                dbContext.SaveChanges();
+            }
+            return "修改成功！";
+        }
         #endregion
     }
 }

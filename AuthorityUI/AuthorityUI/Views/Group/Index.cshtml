@@ -12,8 +12,10 @@
         <!--  search form start 搜索框-->
         <ul class="nav top-menu">
             <li>
-                <form class="navbar-form">
-                    <input class="form-control" placeholder="用户组名称" type="text">
+                <form class="navbar-form" id="formSearch" action="@Url.Action("Index", "Group")">
+                    <label for="gname">
+                        <input class="form-control" placeholder="用户组名称" type="text" id="gname" name="gname" onkeydown="entersearch()">
+                    </label>
                 </form>
             </li>
         </ul>
@@ -164,13 +166,13 @@
             if (confirm("确认要删除？")) {
                 $.ajax({
                     type: "post",
-                    url: '@Url.Action("GroupDelete", "Group")',
+                    url: '@Url.Action("DeleteGroup", "Group")',
                     data: { "gid": gid, },
                     dataType: 'JSON',
                     success: function () {
                     }
                 });
-                window.location.href = '@Url.Action("GroupDelete", "Group")';
+                @*window.location.href = '@Url.Action("GroupDelete", "Group")';*@
                 var form = document.getElementById("formSearch");
                 form.submit();
             }

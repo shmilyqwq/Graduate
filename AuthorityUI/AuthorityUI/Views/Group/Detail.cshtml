@@ -1,34 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Authority.Infrastructure.MyCourse;
+@model Team
+@{
+    var team = Model;
 }
 <section class="wrapper">
     <div class="text-center">
         <h1 class="display-4">用户组明细信息页面</h1>
     </div>
-    <div class="col-lg-6 text-center">
+    <div class="col-lg-10 text-center">
         <section class="panel">
             <header class="panel-heading">
                 用户组信息
             </header>
             <div class="panel-body">
                 <div class="form">
-                    <form class="form-validate form-horizontal" id="feedback_form" method="get" action="" novalidate="novalidate">
+                    <form class="form-validate form-horizontal" id="formSearch" method="get" action="@Url.Action("UpdateGroup","Group")" novalidate="novalidate">
                         <div class="form-group ">
-                            <label for="rname" class="control-label col-lg-4">用户组名称<span class="required">*</span></label>
+                            <label for="gid" class="control-label col-lg-2">用户组Id <span class="required">*</span></label>
                             <div class="col-lg-6">
-                                <input class="form-control" id="rname" name="rname" type="text" required="">
+                                <input class="form-control" value="@team.Gid" minlength="5" type="text" required="" disabled/>
+                                <input id="gid" value="@team.Gid" name="gid" type="hidden" />
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label for="rdesc" class="control-label col-lg-4">用户组描述<span class="required">*</span></label>
+                            <label for="gname" class="control-label col-lg-2">用户组名称<span class="required">*</span></label>
                             <div class="col-lg-6">
-                                <input class="form-control " id="rdesc" type="text" name="rdesc" required="">
+                                <input class="form-control" id="gname" name="gname" value="@team.Gname" type="text" required="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="gdesc" class="control-label col-lg-2">用户组描述<span class="required">*</span></label>
+                            <div class="col-lg-6">
+                                <input class="form-control " id="gdesc" type="text" value="@team.Gdesc" name="gdesc" required="">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-4">
-                                <button class="btn btn-primary" type="submit">Save</button>
+                            <div class="col-lg-offset-2 col-lg-2">
+                                <button class="btn btn-primary" type="submit" onclick="change()">Save</button>
                                 <button class="btn btn-default" type="button">Cancel</button>
                             </div>
                         </div>
@@ -39,3 +48,10 @@
         </section>
     </div>
 </section>
+<script type="text/javascript">
+       
+        function change() {
+            var form = document.getElementById("formSearch");
+            form.submit();
+        }
+</script>
