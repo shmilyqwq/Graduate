@@ -9,6 +9,9 @@ namespace Authority.DomainModel
     public class UserService
     {
         #region Action
+        /// <summary>
+        /// 获取列表信息
+        /// </summary>
         public List<User> GetAll()
         {
             List<User> users = null;
@@ -18,7 +21,9 @@ namespace Authority.DomainModel
             }
             return users;
         }
-
+        /// <summary>
+        /// 添加用户
+        /// </summary>
         public int UserAdd(string uname, string email)
         {
             int count = 0;
@@ -35,7 +40,11 @@ namespace Authority.DomainModel
             }
             return count;
         }
-
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
         public User UserDel(int uid)
         {
             User user = new User()
@@ -51,6 +60,9 @@ namespace Authority.DomainModel
             }
             return user;
         }
+        /// <summary>
+        /// 通过姓名查找用户
+        /// </summary>
         public List<User> GetUserByName(string uname)
         {
             List<User> users=null;
@@ -60,15 +72,32 @@ namespace Authority.DomainModel
             }
             return users;
         }
+        /// <summary>
+        /// 通过ID查找用户
+        /// </summary>
         public User GetUserById(int uid)
         {
             User user = null;
             using (var dbContext = new AuthorityContext())
             {
                 user = dbContext.User.FirstOrDefault(x => x.Uid == uid);
+                //取序列中满足条件的第一个元素，如果没有元素满足条件，则返回默认值
             }
             return user;
         }
+        public User GetUserByEmail(string email)
+        {
+            User user = null;
+            using (var dbContext = new AuthorityContext())
+            {
+                user = dbContext.User.FirstOrDefault(x => x.Email == email);
+                //取序列中满足条件的第一个元素，如果没有元素满足条件，则返回默认值
+            }
+            return user;
+        }
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
         public string UpdateUser(int uid,string uname,string email)
         {            
     
@@ -79,7 +108,7 @@ namespace Authority.DomainModel
                 user.Uname = uname;
                 user.Email = email;
                 dbContext.User.Update(user);
-                dbContext.SaveChanges();
+                dbContext.SaveChanges();//保存改变
             }
             return "修改成功！";
         }

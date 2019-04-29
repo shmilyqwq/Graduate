@@ -29,8 +29,9 @@
                                 <div class="form-group ">
                                     <label for="email" class="control-label col-lg-2">E-Mail <span class="required">*</span></label>
                                     <div class="col-lg-10">
-                                        <input class="form-control " id="email" type="email" name="email" required="">
+                                        <input class="form-control " id="email" type="email" name="email" onblur="isEmail(this.value)" required="">
                                     </div>
+                                    <a id="test_user">&nbsp;</a>
                                 </div>
                                 @*<div class="form-group ">
                                         <label for="password" class="control-label col-lg-2">用户密码</label>
@@ -181,7 +182,7 @@
         </div>
     </section>
 
-
+    <script src="~/JavaScript.js"></script>
     <script type="text/javascript">
             function All(ch) {
                         var sda = ch.checked;

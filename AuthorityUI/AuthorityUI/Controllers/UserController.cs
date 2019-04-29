@@ -40,7 +40,6 @@ namespace AuthorityUI.Controllers
         /// <summary>
         /// 显示用户明细信息
         /// </summary>
-        /// <returns></returns>
         public IActionResult Detail(User user)
         {
             var userService = new UserService();
@@ -50,7 +49,6 @@ namespace AuthorityUI.Controllers
         /// <summary>
         /// 分配角色
         /// </summary>
-        /// <returns></returns>
         public IActionResult Role()
         {
             return View();
