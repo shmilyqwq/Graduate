@@ -49,8 +49,8 @@ namespace AuthorityUI.Controllers
 
                 Task.Run(async () =>
                 {
-                    //登录用户，相当于ASP.NET中的FormsAuthentication.SetAuthCookie
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, user);
+                    //登录用户，相当于ASP.NET中的FormsAuthentication.SetAuthCookie
 
                     //可以使用HttpContext.SignInAsync方法的重载来定义持久化cookie存储用户认证信息，例如下面的代码就定义了用户登录后60分钟内cookie都会保留在客户端计算机硬盘上，
                     //即便用户关闭了浏览器，60分钟内再次访问站点仍然是处于登录状态，除非调用Logout方法注销登录。

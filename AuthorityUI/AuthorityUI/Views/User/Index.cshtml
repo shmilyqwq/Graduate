@@ -133,7 +133,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-success" href='/User/Detail?uid=@users[i].Uid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                                <a class="btn btn-danger" href="" id="delete" onclick="toshow(@users[i].Uid)"><i class="icon_close_alt2">删除</i></a>
+                                                <a class="btn btn-danger" href="javascript:;" id="delete" onclick="toshow(@users[i].Uid)"><i class="icon_close_alt2">删除</i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -200,9 +200,7 @@
                     url: '@Url.Action("DelUser","User")',
                     data: { "uid": uid, },
                     dataType: 'JSON',
-                    success: function () {
-                        alert("删除成功");
-                        window.location.href = "channel-no.action";
+                    success: function () {                        
                     }
                 });
             }
