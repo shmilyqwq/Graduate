@@ -85,7 +85,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-success" href='/Access/Detail?aid=@authors[i].Aid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                        <a class="btn btn-danger" href="" id="delete" onclick="toshow(@authors[i].Aid)"><i class="icon_close_alt2">删除</i></a>
+                                        <a class="btn btn-danger" href='/Access/DeleteAccess?aid=@authors[i].Aid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -166,18 +166,8 @@
         function toshow(aid)
         {
             if (confirm("确认要删除？")) {
-                $.ajax({
-                    type: "post",
-                    url: '@Url.Action("DeleteAccess", "Access")',
-                    data: { "aid": aid, },
-                    dataType: 'JSON',
-                    success: function () {
-                    }
-                });
-                @*window.location.href = '@Url.Action("GroupDelete", "Group")';*@
-                var form = document.getElementById("formSearch");
-                form.submit();
-            }
+                window.location.href = '/Access/DeleteAccess?aid=' + aid;                    
+            }       
         }
         function entersearch() {
 

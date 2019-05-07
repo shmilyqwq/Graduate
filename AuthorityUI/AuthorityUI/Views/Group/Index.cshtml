@@ -45,9 +45,9 @@
                 <div class="panel-heading">
                     <h2><i class="fa fa-flag-o red"></i><strong> Group List</strong></h2>
                     <div class="panel-actions">
-                        <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-                        <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-                        <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
+                        <a href="" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
+                        <a href="" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+                        <a href="" class="btn-close"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -77,7 +77,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-success" href='/Group/Detail?gid=@teams[i].Gid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                        <a class="btn btn-danger" href="" id="delete" onclick="toshow(@teams[i].Gid)"><i class="icon_close_alt2">删除</i></a>
+                                        <a class="btn btn-danger" href='/Group/DeleteGroup?gid=@teams[i].Gid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -164,17 +164,7 @@
         function toshow(gid)
         {
             if (confirm("确认要删除？")) {
-                $.ajax({
-                    type: "post",
-                    url: '@Url.Action("DeleteGroup", "Group")',
-                    data: { "gid": gid, },
-                    dataType: 'JSON',
-                    success: function () {
-                    }
-                });
-                @*window.location.href = '@Url.Action("GroupDelete", "Group")';*@
-                var form = document.getElementById("formSearch");
-                form.submit();
+                window.location.href = '/Group/DeleteGroup?gid=' + gid;
             }
         }
         function entersearch() {

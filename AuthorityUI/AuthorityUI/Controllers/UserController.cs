@@ -74,7 +74,7 @@ namespace AuthorityUI.Controllers
         public IActionResult DelUser(User user)
         {
             var userService = new UserService();
-            var users = userService.UserDel(user.Uid);
+            var count= userService.UserDel(user.Uid);
             return Redirect(Url.Action("Index", "User"));
         }
 

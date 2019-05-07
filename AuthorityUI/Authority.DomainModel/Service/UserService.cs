@@ -45,8 +45,9 @@ namespace Authority.DomainModel
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
-        public User UserDel(int uid)
+        public int UserDel(int uid)
         {
+            int count = 0;
             User user = new User()
             {
                 Uid = uid,
@@ -56,9 +57,10 @@ namespace Authority.DomainModel
             {
                 user = dbContext.User.FirstOrDefault(x => x.Uid == uid);
                 dbContext.User.Remove(user);
-                dbContext.SaveChanges();
+                count=dbContext.SaveChanges();
+                
             }
-            return user;
+            return count;
         }
         /// <summary>
         /// 通过姓名查找用户
@@ -89,6 +91,7 @@ namespace Authority.DomainModel
         {
             User user = null;
             using (var dbContext = new AuthorityContext())
+            //DbContext实例化，用来执行GRUD操作
             {
                 user = dbContext.User.FirstOrDefault(x => x.Email == email);
                 //取序列中满足条件的第一个元素，如果没有元素满足条件，则返回默认值

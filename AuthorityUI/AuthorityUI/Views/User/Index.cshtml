@@ -133,7 +133,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-success" href='/User/Detail?uid=@users[i].Uid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                                <a class="btn btn-danger" href="javascript:;" id="delete" onclick="toshow(@users[i].Uid)"><i class="icon_close_alt2">删除</i></a>
+                                                <a class="btn btn-danger" href='/User/DelUser?uid=@users[i].Uid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -194,16 +194,9 @@
 
         function toshow(uid)
         {
-            if (confirm("确认要删除？")) {
-                $.ajax({
-                    type: "post",
-                    url: '@Url.Action("DelUser","User")',
-                    data: { "uid": uid, },
-                    dataType: 'JSON',
-                    success: function () {                        
-                    }
-                });
-            }
+            if (confirm("确认要删除？")) {                
+               window.location.href = '/User/DelUser?uid=' + uid;
+            }                                 
         }
             
         
