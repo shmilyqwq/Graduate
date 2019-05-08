@@ -4,28 +4,21 @@
     var roles = ViewData["Roles"] as List<Role>;
 }
 <section class="wrapper">
-    <div class="text-center ">
-        <h1 class="display-4">角色列表信息页面</h1>
-    </div>
-
-    <div class="nav search-row " id="top_menu">
-        <!--  search form start 搜索框-->
-        <ul class="nav top-menu">
-            <li>
-                <form class="navbar-form" id="formSearch" action="@Url.Action("Index", "Role")">
-                    <lable for="rname">
-                        <input class="form-control" placeholder="角色名称" type="text"id="rname" name="rname" onkeydown="entersearch()">
-                    </lable>
-                </form>
-            </li>
-        </ul>
-        <!--  search form end -->
+    <!--overview start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-group"></i> 角色信息管理</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href='@Url.Action("Privacy","User")'>Home</a></li>
+                <li><i class="fa fa fa-group"></i>角色列表信息页面</li>
+            </ol>
+        </div>
     </div>
 
     <!--列表-->
 
-    <div class="row panel-body">
-        <a class="btn btn-default btn-sm"  title="添加" onclick="ab()">
+    @*<div class="row panel-body">
+        <a class="btn btn-default btn-sm" title="添加" onclick="ab()">
             <i class="fa fa-plus"></i>&nbsp;添加
         </a>
         <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
@@ -34,16 +27,30 @@
         <a class="btn btn-default btn-sm" href="" title="删除" onclick="delcfm()">
             <i class="fa fa-minus"></i>&nbsp;删除
         </a>
-        <a class="btn btn-default btn-sm" href="" title="分配权限点" onclick="naccess()">
+        <a class="btn btn-default btn-sm" href='' title="分配权限点" onclick="ac()">
             <i class="fa fa-key"></i>&nbsp;分配权限点
         </a>
-    </div>
+    </div>*@
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2><i class="fa fa-flag-o red"></i><strong> Role List</strong></h2>
+                    <div class="sidebar-search" id="top_menu">
+                        <!--  search form start 搜索框-->
+                        <form class="navbar-form" id="formSearch" action="@Url.Action("Index", "Role")">
+                            <lable for="rname">
+                                <input class="form-control" placeholder="角色名称" type="text" id="rname" name="rname" onkeydown="entersearch()">
+                            </lable>
+                            <a class="btn btn-default btn-sm" title="添加" onclick="ab()">
+                                <i class="fa fa-plus"></i>&nbsp;添加
+                            </a>
+                        </form>
+                        <!--  search form end -->
+
+                    </div>
+
                     <div class="panel-actions">
                         <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                         <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
@@ -61,36 +68,34 @@
                                 <th>角色名称</th>
                                 @* <th>父节点</th>*@
                                 <th>角色描述</th>
+                                <th>权限点</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for (int i = 0; i < roles.Count; i++)
                             {
-                            <tr>
-                                <td i class="label_check" for="rid">
-                                    <input name="sample-checkbox-01" id="@roles[i].Rid" value="2" type="checkbox" />
-                                </td>
-                                <td>@roles[i].Rid</td>
-                                <td>@roles[i].Rname</td>
-                                <td>@roles[i].Rdesc</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-success" href='/Role/Detail?rid=@roles[i].Rid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                        <a class="btn btn-danger" href='/Role/RoleDelete?rid=@roles[i].Rid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-
-                            @*<tr>
-                                    <td i class="label_check" for="checkbox-01">
-                                        <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
+                                <tr>
+                                    <td i class="label_check" for="rid">
+                                        <input name="sample-checkbox-01" id="@roles[i].Rid" value="2" type="checkbox" />
                                     </td>
-                                    <td>1</td>
-                                    <td>admin</td>
-                                    <td>管理员</td>
-                                </tr>*@
+                                    <td>@roles[i].Rid</td>
+                                    <td>@roles[i].Rname</td>
+                                    <td>@roles[i].Rdesc</td>
+                                    <td>
+                                       <a href='@Url.Action("Apoint","Role")'>查看权限点</a>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-success" href='/Role/Detail?rid=@roles[i].Rid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
+                                            <a class="btn btn-danger" href='/Role/RoleDelete?rid=@roles[i].Rid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
+                                            <a class="btn btn-default btn-sm" href='/Role/Apoint?rid=@roles[i].Rid' title="分配权限点" onclick="">
+                                                <i class="fa fa-key"></i>&nbsp;分配权限点
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr> 
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -128,7 +133,8 @@
     left: 0;
     display: none;
     background-color: rgba(0, 0, 0, 0.6);">
-      <div class="add" id="add" style=" width: 500px;
+        <!--添加角色-->
+        <div class="add" id="add" style=" width: 500px;
         height: 350px;
         background-color: #fff;
         margin: 150px auto;">
@@ -165,14 +171,13 @@
                     </div>
                 </section>
             </div>
-
-      </div>
+        </div>
     </div>
 
 </section>
 <script src="~/Test.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
             //function showtext() {
             //    $("#con").attr("style", "display:;");
             //}
@@ -186,8 +191,8 @@
         }
         function toshow(rid)
         {
-            if (confirm("确认要删除？")) {                        
-                    window.location.href = '/Role/RoleDelete?rid=' + rid;                    
+            if (confirm("确认要删除？")) {
+                    window.location.href = '/Role/RoleDelete?rid=' + rid;
             }
         }
         function entersearch() {
@@ -197,7 +202,7 @@
                 var form = document.getElementById("formSearch");
                 form.submit();
             }
-        }        
+        }
         //function delcfm() {
         //if (!confirm("确认要删除？")) {
         //window.event.returnValue = false;
@@ -212,6 +217,6 @@
         window.open('@Url.Action("Apoint","Role")');
         }
 
-    </script>
+</script>
 
 

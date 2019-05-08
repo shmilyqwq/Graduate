@@ -42,9 +42,11 @@ namespace AuthorityUI.Controllers
             var model = roleService.GetRoleById(role.Rid);
             return View(model);
         }
-        public IActionResult Apoint()
+        public IActionResult Apoint(Role role)
         {
-            return View();
+            var roleService = new RoleService();
+            var model = roleService.GetRoleById(role.Rid);
+            return View(model);
         }
         public IActionResult AddRole(Role role)
         {
