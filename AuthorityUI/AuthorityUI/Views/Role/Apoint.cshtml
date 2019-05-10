@@ -3,6 +3,10 @@
 @{
     var role = Model;
 }
+@{ 
+    var authors = ViewData["Authors"] as List<Author>;
+    var allslist = ViewData["AllaList"] as List<Author>;
+}
 <section class="wrapper">
     <!--分配权限点-->
     <div class="col-lg-12 text-center">
@@ -12,91 +16,87 @@
             </header>
             <div class="panel-body">
                 <div class="form">
-                    <form id="formSearch" class="form-validate form-horizontal" method="get" action='@Url.Action("Apoint","Role")' novalidate="novalidate">
-                        <div class="form-group ">
-                            <label for="rid" class="control-label col-lg-2">角色Id <span class="required">*</span></label>
-                            <div class="col-lg-10">
-                                <input class="form-control" value="@role.Rid" minlength="5" type="text" required="" disabled />
-                                <input id="rid" value="@role.Rid" name="rid" type="hidden" />
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="rname" class="control-label col-lg-2">角色名称<span class="required">*</span></label>
-                            <div class="col-lg-10">
-                                <input class="form-control" id="rname" name="rname" value="@role.Rname" type="text" required="" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="rdesc" class="control-label col-lg-2">角色描述<span class="required">*</span></label>
-                            <div class="col-lg-10">
-                                <input class="form-control " id="rdesc" value="@role.Rdesc" type="text" name="rdesc" required="" disabled>
-                            </div>
-                        </div>
-
-
-                        @*<div class="panel-body">
-                            <form class="form-horizontal " id="feedback_form" method="get" action='@Url.Action("Apoint","Role")' novalidate="novalidate">
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4" for="inputSuccess">您已选择的角色：</label>
-                                    <div class="box-content">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>角色ID</th>
-                                                    <th>角色名称</th>
-                                                    <th>角色描述</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <td>@role.Rid</td>
-                                            <td>@role.Rname</td>
-                                            <td>@role.Rdesc</td>
-                                            </tbody>
-                                        </table>
-                                    </div>*@
+                    <form id="formSearch" class="form-validate form-horizontal" method="get" novalidate="novalidate">
                         <div class="form-group">
+                            <label class="control-label col-lg-4" for="inputSuccess">您已选择的角色：</label>
+                            <div class="box-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>角色ID</th>
+                                            <th>角色名称</th>
+                                            <th>角色描述</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <input class="form-control" value="@role.Rid" minlength="5" required="" disabled />
+                                            </td>
+                                            <td>
+                                                <input class="form-control" id="rname" name="rname" value="@role.Rname" required="" disabled>
+                                            </td>
+                                            <td>
+                                                <input class="form-control " id="rdesc" value="@role.Rdesc" name="rdesc" required="" disabled>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form">
+                    <form id="formSearch" class="form-validate form-horizontal col-sm-12" method="get" action="@Url.Action()" novalidate="novalidate">
+                        <div class="col-sm-6">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    选择权限点
+                                    已有权限点
                                 </header>
                                 <div class="panel-body">
-                                    <input name="tagsinput" id="tagsinput" class="tagsinput" value="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal" style="display: none;">
-                                    <div id="tagsinput_tagsinput" class="tagsinput " style="height: 100%;">
-                                        <span class="tag">
-                                            <span>Template&nbsp;&nbsp;</span>
-                                            <a class="tagsinput-remove-link"></a>
-                                        </span>
-                                        <span class="tag">
-                                            <span>Theme&nbsp;&nbsp;</span>
-                                            <a class="tagsinput-remove-link"></a>
-                                        </span>
-                                        <span class="tag">
-                                            <span>Responsive&nbsp;&nbsp;</span>
-                                            <a class="tagsinput-remove-link"></a>
-                                        </span>
-                                        <span class="tag">
-                                            <span>Retina&nbsp;&nbsp;</span>
-                                            <a class="tagsinput-remove-link"></a>
-                                        </span>
-                                        <span class="tag">
-                                            <span>Minimal&nbsp;&nbsp;</span>
-                                            <a class="tagsinput-remove-link"></a>
-                                        </span>
-                                        <div class="tagsinput-add-container" id="tagsinput_addTag">
-                                            <div class="tagsinput-add"></div>
-                                            <input id="tagsinput_tag" value="" data-default="" style="color: rgb(102, 102, 102); width: 7px;">
-                                        </div>
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < authors.Count; i++)
+                                        {
+                                            <label class="btn btn-primary" name="aid" id="@authors[i].Aid">
+                                                @authors[i].Aname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
                                     </div>
                                 </div>
                             </section>
                         </div>
-                        <div class="col-lg-offset-5 col-lg-10">
-                            <button type="submit" class="btn btn-danger">确定</button>
-                            <button type="submit" class="btn btn-danger" id="cancel">取消</button>
+                        <div class="col-sm-6">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    所有权限点
+                                </header>
+                                <div class="panel-body">
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < allslist.Count; i++)
+                                        {
+                                            <label class="btn btn-primary " name="aid" id="@allslist[i].Aid">
+                                                @allslist[i].Aname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
+                                     </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="submit" class="btn btn-danger">确定</button>
+                            <button type="submit" class="btn btn-danger" id="cancel">返回</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 

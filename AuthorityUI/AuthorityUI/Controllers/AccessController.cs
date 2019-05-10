@@ -10,7 +10,7 @@ using Authority.Infrastructure.MyCourse;
 
 namespace AuthorityUI.Controllers
 {
-    public class AccessController : Controller
+    public class AccessController : BaseController
     {
         /// <summary>
         /// 显示权限点列表信息

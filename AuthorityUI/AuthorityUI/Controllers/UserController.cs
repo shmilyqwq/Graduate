@@ -10,7 +10,7 @@ using Authority.DomainModel;
 
 namespace AuthorityUI.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         /// <summary>
         /// 显示用户列表信息

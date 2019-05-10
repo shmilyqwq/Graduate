@@ -10,7 +10,7 @@ using Authority.Infrastructure.MyCourse;
 
 namespace AuthorityUI.Controllers
 {
-    public class GroupController : Controller
+    public class GroupController : BaseController
     {
         /// <summary>
         /// 显示用户组列表信息

@@ -1,0 +1,32 @@
+﻿@using Authority.Infrastructure.MyCourse;
+@model Roac
+@{
+    var roacs =Model;
+}
+<form class="navbar-form" id="formSearch" action="@Url.Action("Roac", "Role")">
+    <a class="btn btn-default btn-sm" title="添加" onclick="ab()">
+        <i class="fa fa-plus"></i>&nbsp;添加
+    </a>
+</form>
+<div class="panel-body">
+    <table class="table bootstrap-datatable users">
+        <thead>
+            <tr>
+                <th>角色ID</th>
+                <th>权限点ID</th>
+                @* <th>父节点</th>*@
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td i class="label_check" for="rid">
+                        <input name="sample-checkbox-01" id="@roacs.Rid" value="2" type="checkbox" />
+                    </td>
+                    <td>@roacs.Rid</td>
+                    <td>@roacs.Aid</td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>

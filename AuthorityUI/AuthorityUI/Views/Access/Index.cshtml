@@ -75,29 +75,29 @@
                         <tbody>
                             @for (int i = 0; i < authors.Count; i++)
                             {
-                            <tr>
-                                <td i class="label_check" for="aid">
-                                    <input name="sample-checkbox-01" id="@authors[i].Aid" value="2" type="checkbox" />
-                                </td>
-                                <td>@authors[i].Aid</td>
-                                <td>@authors[i].Aname</td>
-                                <td>@authors[i].Enabled</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a class="btn btn-success" href='/Access/Detail?aid=@authors[i].Aid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                        <a class="btn btn-danger" href='/Access/DeleteAccess?aid=@authors[i].Aid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td i class="label_check" for="aid">
+                                        <input name="sample-checkbox-01" id="@authors[i].Aid" value="2" type="checkbox" />
+                                    </td>
+                                    <td>@authors[i].Aid</td>
+                                    <td>@authors[i].Aname</td>
+                                    <td>@authors[i].Enabled</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-success" href='/Access/Detail?aid=@authors[i].Aid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
+                                            <a class="btn btn-danger" href='/Access/DeleteAccess?aid=@authors[i].Aid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                             @*<tr>
-                                <td i class="label_check" for="checkbox-01">
-                                    <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
-                                </td>
-                                <td>1</td>
-                                <td>增加用户</td>
-                                <td>是</td>
-                            </tr>*@
+            <td i class="label_check" for="checkbox-01">
+                <input name="sample-checkbox-01" id="checkbox-01" value="2" type="checkbox" checked />
+            </td>
+            <td>1</td>
+            <td>增加用户</td>
+            <td>是</td>
+        </tr>*@
                         </tbody>
                     </table>
                 </div>
@@ -146,9 +146,9 @@
                                 </div>
                             </form>
                         </div>
-                     </div>
-             </div>
-</section>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </div>

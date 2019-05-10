@@ -31,7 +31,7 @@ namespace Authority.DomainModel
             {
                 Uname = uname,
                 Email = email,
-                Password = uname + "000000",
+                Password ="000000",
             };
             using (var dbContext = new AuthorityContext())
             {

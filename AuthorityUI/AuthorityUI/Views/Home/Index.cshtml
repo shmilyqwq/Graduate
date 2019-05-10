@@ -43,24 +43,24 @@
 
     <div class="container">
 
-        <form class="login-form" >
+        <form class="login-form" action="@Url.Action("Login","Home")" >
             <div class="login-wrap">
                 <p class="login-img"><i class="icon_lock_alt"></i></p>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon_profile"></i></span>
-                    <input type="text" id="" class="form-control" onblur="isEmail(this.value)" placeholder="Email" autofocus>
+                    <input type="text" id="" name="Email" class="form-control" onblur="isEmail(this.value)" placeholder="Email" autofocus>
                 </div>
                 <a id="test_user">&nbsp;</a>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
                 </div>
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                     <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
                 </label>
-                <a class="btn btn-primary btn-lg btn-block" type="submit" href='@Url.Action("Login","Home")'>Login</a>
-                <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+     
             </div>
         </form>
         <div class="text-right">
