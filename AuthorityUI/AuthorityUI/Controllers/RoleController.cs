@@ -56,7 +56,20 @@ namespace AuthorityUI.Controllers
                 accesslist.Add(alist);
             }
             ViewData["Authors"] = accesslist;
-            ViewData["AllaList"] = accessService.GetAll();
+            
+
+            var allAccessList = accessService.GetAll();
+            var unAuthorList = new List<Author>();
+
+            foreach (var author in allAccessList)
+            {
+                var isAdd = !accesslist.Exists(x => x.Aid == author.Aid);
+                if (isAdd)
+                {
+                    unAuthorList.Add(author);
+                }
+            }
+            ViewData["UnAuthorList"] = unAuthorList;
             return View(model);
         }
         //public IActionResult Roac(Roac roac)
@@ -84,6 +97,18 @@ namespace AuthorityUI.Controllers
             var roleService = new RoleService();
             var ab = roleService.UpdateRole(role.Rid, role.Rname, role.Rdesc);
             return Redirect(Url.Action("Index", "Role"));
+        }
+        public IActionResult RoacDelete(Roac roac)
+        {
+            var roleaccService = new RoleAccService();
+            var roles = roleaccService.RoacDelete(roac);
+            return Redirect("/Role/Apoint?rid="+roac.Rid);
+        }
+        public IActionResult AddUnRoac(Roac roac)
+        {
+            var roleaccService = new RoleAccService();
+            var count = roleaccService.AddUnRoac(roac);
+            return Redirect("/Role/Apoint?rid=" + roac.Rid);
         }
         //public IActionResult ListRoac(Roac roac)
         //{

@@ -5,7 +5,7 @@
 }
 @{ 
     var authors = ViewData["Authors"] as List<Author>;
-    var allslist = ViewData["AllaList"] as List<Author>;
+    var unAuthorList = ViewData["UnAuthorList"] as List<Author>;
 }
 <section class="wrapper">
     <!--分配权限点-->
@@ -50,7 +50,7 @@
                     </form>
                 </div>
                 <div class="form">
-                    <form id="formSearch" class="form-validate form-horizontal col-sm-12" method="get" action="@Url.Action()" novalidate="novalidate">
+                    <form id="formDel" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("RoacDelete","Role")" novalidate="novalidate">
                         <div class="col-sm-6">
                             <section class="panel">
                                 <header class="panel-heading">
@@ -60,7 +60,7 @@
                                     <div class="btn-row">
                                         @for (int i = 0; i < authors.Count; i++)
                                         {
-                                            <label class="btn btn-primary" name="aid" id="@authors[i].Aid">
+                                            <label class="btn btn-primary" name="aid" id="@authors[i].Aid" onclick="change(@authors[i].Aid)">
                                                 @authors[i].Aname
                                             </label>
                                             <label>&nbsp;</label>
@@ -69,17 +69,19 @@
                                 </div>
                             </section>
                         </div>
+                        </form>
+                    <form id="formAdd" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("AddUnRoac","Role")" novalidate="novalidate">
                         <div class="col-sm-6">
                             <div class="panel">
                                 <header class="panel-heading">
-                                    所有权限点
+                                    可选权限点
                                 </header>
                                 <div class="panel-body">
                                     <div class="btn-row">
-                                        @for (int i = 0; i < allslist.Count; i++)
+                                        @for (int i = 0; i < unAuthorList.Count; i++)
                                         {
-                                            <label class="btn btn-primary " name="aid" id="@allslist[i].Aid">
-                                                @allslist[i].Aname
+                                            <label class="btn btn-primary " name="aid" id="@unAuthorList[i].Aid" onclick="add(@unAuthorList[i].Aid)">
+                                                @unAuthorList[i].Aname
                                             </label>
                                             <label>&nbsp;</label>
                                         }
@@ -103,31 +105,15 @@
     </div>
 
 </section>
-@*<script type="text/javascript">
-    var a = document.getElementsByTagName("a")[3];
-    var mask = document.getElementById("mask1");
-    function ac(event) {
-        mask.style.display = "block";
-        //阻止冒泡
-        event = event || window.event;
-        if (event || event.stopPropagation()) {
-            event.stopPropagation();
-        } else {
-            event.cancelBubble = true;
+<script type="text/javascript">
+    function change(aid) {
+        if (confirm("确认删除权限点？")) {
+            window.location.href = '/Role/RoacDelete?aid=' + aid + '&rid=@role.Rid';
         }
     }
-
-    document.onclick = function ac(event) {
-        event = event || window.event;
-        //兼容获取触动事件时被传递过来的对象
-        var bbb = event.target ? event.target : event.srcElement;
-        if (bbb.id == "mask1" || bbb.id == "cancel") {
-            mask.style.display = "none";
+    function add(aid) {
+        if (confirm("确认增加权限点？")) {
+            window.location.href = '/Role/AddUnRoac?aid=' + aid + '&rid=@role.Rid';
         }
-    }*@
-<script type="text/javascript">
-    function change() {
-        var form = document.getElementById("formSearch");
-        form.submit();
     }
 </script>

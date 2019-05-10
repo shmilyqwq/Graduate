@@ -21,7 +21,7 @@ namespace Authority.DomainModel
         public int AddRoac(Roac roac)
         {
             int count = 0;
-            using(var dbcontext=new AuthorityContext())
+            using (var dbcontext = new AuthorityContext())
             {
                 dbcontext.Roac.Add(roac);
                 count = dbcontext.SaveChanges();
@@ -38,6 +38,28 @@ namespace Authority.DomainModel
                 
             }
             return roacs;
+        }
+        public Roac RoacDelete(Roac roac)
+        {
+            //标记为删除状态
+            using (var dbContext = new AuthorityContext())
+            {
+                roac = dbContext.Roac.FirstOrDefault(x => x.Rid == roac.Rid && x.Aid == roac.Aid);
+                dbContext.Roac.Remove(roac);
+                dbContext.SaveChanges();
+            }
+            return roac;
+        }
+        public Roac AddUnRoac(Roac roac)
+        {
+            int count = 0;
+            using (var dbcontext=new AuthorityContext())
+            {
+                
+                dbcontext.Roac.Add(roac);
+                count=dbcontext.SaveChanges();
+            }
+            return roac;
         }
     }
     #endregion
