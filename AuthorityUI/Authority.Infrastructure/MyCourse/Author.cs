@@ -7,6 +7,6 @@ namespace Authority.Infrastructure.MyCourse
     {
         public int Aid { get; set; }
         public string Aname { get; set; }
-        public int Enabled { get; set; }
+        public int? Enabled { get; set; }
     }
 }

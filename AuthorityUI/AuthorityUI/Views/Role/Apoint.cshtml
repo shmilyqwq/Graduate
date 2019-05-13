@@ -50,7 +50,7 @@
                     </form>
                 </div>
                 <div class="form">
-                    <form id="formDel" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("RoacDelete","Role")" novalidate="novalidate">
+                    <form id="formDel" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("GracDelete","Group")" novalidate="novalidate">
                         <div class="col-sm-6">
                             <section class="panel">
                                 <header class="panel-heading">
@@ -93,8 +93,8 @@
                     <div class="clearfix"></div>
                     <div class="row">
                         <div class="col-sm-offset-2 col-sm-8">
-                            <button type="submit" class="btn btn-danger">确定</button>
-                            <button type="submit" class="btn btn-danger" id="cancel">返回</button>
+                            <button type="submit" class="btn btn-danger" onclick="back()">确定</button>
+                            @*<button type="submit" class="btn btn-danger" id="cancel">返回</button>*@
                         </div>
                     </div>
                 </div>
@@ -115,5 +115,9 @@
         if (confirm("确认增加权限点？")) {
             window.location.href = '/Role/AddUnRoac?aid=' + aid + '&rid=@role.Rid';
         }
+    }
+    //返回
+    function back() {
+        window.location.href = '/Role/Index';
     }
 </script>

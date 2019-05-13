@@ -21,6 +21,7 @@ document.onclick = function (event) {
     }
 }
 
+
 //onblur失去焦点事件，用户离开输入框时执行 JavaScript 代码：
 //函数：验证邮箱格式
 function isEmail(strEmail) {

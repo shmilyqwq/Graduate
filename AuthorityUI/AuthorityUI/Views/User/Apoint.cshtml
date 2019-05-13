@@ -1,70 +1,122 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Authority.Infrastructure.MyCourse;
+@model User
+@{
+    var user = Model;
+}
+@{
+    var authors = ViewData["Authors"] as List<Author>;
+    var unAuthorList = ViewData["UnAuthorList"] as List<Author>;
 }
 <section class="wrapper">
-    <div class="text-center">
-        <h1 class="display-4">分配权限点</h1>
-    </div>
-    <div class="col-lg-10">
+    <!--分配权限点-->
+    <div class="col-lg-12 text-center">
         <section class="panel">
+            <header class="panel-heading">
+                分配权限点
+            </header>
             <div class="panel-body">
-                <form class="form-horizontal " method="get">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="inputSuccess">您已选择的用户：</label>
-                        <div class="box-content">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>用户ID</th>
-                                        <th>用户名称</th>
-                                        <th>所属用户组</th>
-                                        <th>角色</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1001</td>
-                                        <td>jack</td>
-                                        <td>设计部</td>
-                                        <td>总监</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>1002</td>
-                                        <td>Linda</td>
-                                        <td>人事部</td>
-                                        <td>职员</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>1003</td>
-                                        <td>Spadn</td>
-                                        <td>研发部</td>
-                                        <td>职员</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="form">
+                    <form id="formSearch" class="form-validate form-horizontal" method="get" novalidate="novalidate">
                         <div class="form-group">
-                            <label class="control-label col-lg-2" for="inputSuccess">选择权限点</label>
-                            <div class="col-lg-10">
-                                <select class="form-control m-bot15">
-                                    <option>增加用户</option>
-                                    <option>删除用户</option>
-                                    <option>增加角色</option>
-                                    <option>删除用户组</option>
-                                </select>
+                            <label class="control-label col-lg-4" for="inputSuccess">您已选择的用户：</label>
+                            <div class="box-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>用户ID</th>
+                                            <th>用户名称</th>
+                                            <th>用户邮箱</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <input class="form-control" value="@user.Uid" minlength="5" required="" disabled />
+                                            </td>
+                                            <td>
+                                                <input class="form-control" id="uname" name="uname" value="@user.Uname" required="" disabled>
+                                            </td>
+                                            <td>
+                                                <input class="form-control " id="email" value="@user.Email" name="email" required="" disabled>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
-                        <div class="col-lg-offset-5 col-lg-10">
-                            <button type="submit" class="btn btn-danger">确定</button>
-                            <button type="submit" class="btn btn-danger">取消</button>
+                    </form>
+                </div>
+                <div class="form">
+                    <form id="formDel" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("UserAccDelete","UserAcc")" novalidate="novalidate">
+                        <div class="col-sm-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    已有权限点
+                                </header>
+                                <div class="panel-body">
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < authors.Count; i++)
+                                        {
+                                            <label class="btn btn-primary" name="aid" id="@authors[i].Aid" onclick="change(@authors[i].Aid)">
+                                                @authors[i].Aname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
                         </div>
-                     </div>
-                   </form>
+                    </form>
+                    <form id="formAdd" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("AddUnUserAcc","UserAcc")" novalidate="novalidate">
+                        <div class="col-sm-6">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    可选权限点
+                                </header>
+                                <div class="panel-body">
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < unAuthorList.Count; i++)
+                                        {
+                                            <label class="btn btn-primary " name="aid" id="@unAuthorList[i].Aid" onclick="add(@unAuthorList[i].Aid)">
+                                                @unAuthorList[i].Aname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="submit" class="btn btn-danger" onclick="back()">确定</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
+
     </div>
+
 </section>
+<script type="text/javascript">
+    function change(aid) {
+        if (confirm("确认删除权限点？")) {
+            window.location.href = '/UserAcc/UserAccDelete?aid=' + aid + '&uid=@user.Uid';
+        }
+    }
+    function add(aid) {
+        if (confirm("确认增加权限点？")) {
+            window.location.href = '/UserAcc/AddUnUserAcc?aid=' + aid + '&uid=@user.Uid';
+        }
+    }
+    //返回
+    function back() {
+        window.location.href = '/User/Index';
+    }
+</script>

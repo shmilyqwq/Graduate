@@ -21,7 +21,9 @@ namespace Authority.Infrastructure.MyCourse
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Team> Team { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
+        public virtual DbSet<UserAcc> UserAcc { get; set; }
+        public virtual DbSet<UserTe> UserTe { get; set; }
+        public virtual DbSet<UserRo> UserRo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -141,6 +143,10 @@ namespace Authority.Infrastructure.MyCourse
 
                 entity.ToTable("user");
 
+                entity.HasIndex(e => e.Email)
+                    .HasName("Email_UNIQUE")
+                    .IsUnique();
+
                 entity.Property(e => e.Uid)
                     .HasColumnName("UID")
                     .HasColumnType("int(11)");
@@ -156,27 +162,59 @@ namespace Authority.Infrastructure.MyCourse
                     .HasColumnType("varchar(20)");
             });
 
-            modelBuilder.Entity<UserRole>(entity =>
+            modelBuilder.Entity<UserAcc>(entity =>
             {
-                entity.HasKey(e => e.Urid)
+                entity.HasKey(e => e.Uaid)
                     .HasName("PRIMARY");
 
-                entity.ToTable("user_role");
+                entity.ToTable("useracc");
 
-                entity.Property(e => e.Urid)
-                    .HasColumnName("URID")
+                entity.Property(e => e.Uaid)
+                    .HasColumnName("UAID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Aid)
                     .HasColumnName("AID")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Gid)
-                    .HasColumnName("GID")
+                entity.Property(e => e.Uid)
+                    .HasColumnName("UID")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<UserRo>(entity =>
+            {
+                entity.HasKey(e => e.Urid)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("usero");
+
+                entity.Property(e => e.Urid)
+                    .HasColumnName("URID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Rid)
                     .HasColumnName("RID")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Uid)
+                    .HasColumnName("UID")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<UserTe>(entity =>
+            {
+                entity.HasKey(e => e.Ugid)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("UserTe");
+
+                entity.Property(e => e.Ugid)
+                    .HasColumnName("UGID")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Gid)
+                    .HasColumnName("GID")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Uid)

@@ -50,7 +50,7 @@ namespace AuthorityUI.Controllers
         public IActionResult AddAccess(Author author)
         {
             var accessService = new AccessService();
-            var count = accessService.AccessAdd(author.Aname,author.Enabled);
+            var count = accessService.AccessAdd(author.Aname,(int)author.Enabled);
             return Redirect(Url.Action("Index", "Access"));
         }
         public IActionResult DeleteAccess(Author author)
@@ -70,7 +70,7 @@ namespace AuthorityUI.Controllers
         public IActionResult UpdateAccess(Author author)
         {
             var accessService = new AccessService();
-            var ab = accessService.UpdateAccess(author.Aid, author.Aname, author.Enabled);
+            var ab = accessService.UpdateAccess(author.Aid, author.Aname, (int)author.Enabled);
             return Redirect(Url.Action("Index", "Access"));
         }
     }

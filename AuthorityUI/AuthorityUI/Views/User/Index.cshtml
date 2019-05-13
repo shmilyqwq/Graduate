@@ -1,16 +1,19 @@
-﻿
-@using Authority.Infrastructure.MyCourse;
+﻿@using Authority.Infrastructure.MyCourse;
 @{
     var users = ViewData["Users"] as List<User>;
 }
 <body>
     <section class="wrapper panel">
-        <div class="text-center ">
-            <h1 class="display-4">用户列表信息页面</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                @*<h3 class="page-header"><i class="fa fa-group"></i> 用户信息管理</h3>*@
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href='@Url.Action("Privacy","Home")'>Home</a></li>
+                    <li><i class="fa fa-user"></i>用户列表信息页面</li>
+                </ol>
+            </div>
         </div>
-
-
-        <!--列表-->
+        <!--添加用户-->
         <div id="show" style="display:none">
             <div class="col-lg-12">
                 <section class="panel">
@@ -34,11 +37,11 @@
                                     <a id="test_user">&nbsp;</a>
                                 </div>
                                 @*<div class="form-group ">
-                                        <label for="password" class="control-label col-lg-2">用户密码</label>
-                                        <div class="col-lg-10">
-                                            <input class="form-control " id="curl" type="password" name="password">
-                                        </div>
-                                    </div>*@
+                                    <label for="password" class="control-label col-lg-2">用户密码</label>
+                                    <div class="col-lg-10">
+                                        <input class="form-control " id="curl" type="password" name="password">
+                                    </div>
+                                </div>*@
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-primary" type="submit">Save</button>
@@ -71,12 +74,6 @@
                 <a class="btn btn-default btn-sm" title="添加" id="btnshow" onclick="add()">
                     <i class="fa fa-plus"></i>&nbsp;添加
                 </a>
-                <a class="btn btn-default btn-sm" href="" title="修改" onclick="update()">
-                    <i class="fa fa-pencil"></i>&nbsp;修改
-                </a>
-                <a class="btn btn-default btn-sm" href='' title="删除" id="btn2" onClick="delcfm()">
-                    <i class="fa fa-minus"></i>&nbsp;删除
-                </a>
                 <a class="btn btn-default btn-sm" href="" title="分配角色" onclick="nrole()">
                     <i class="fa fa-group"></i>&nbsp;分配角色
                 </a>
@@ -92,73 +89,67 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="panel panel-default">
-
                         <div class="panel-heading">
                             <h2><i class="fa fa-flag-o red"></i><strong> User List</strong></h2>
-                            <div class="panel-actions">
+                            @*<div class="panel-actions">
                                 <a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
                                 <a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
                                 <a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="panel-body">
                             <table class="table bootstrap-datatable users">
                                 <thead>
                                     <tr>
                                         <th i class=" label_check">
-                                            <input name="sample-checkbox-01" type="checkbox" onclick="All(this)" value="全选" />全选
+                                            <input name="checkbox-01" type="checkbox" onclick="All(this)" value="全选" />全选
                                         </th>
                                         <th>用户ID</th>
                                         <th>用户名称</th>
-                                        <th>所属用户组</th>
-                                        <th>角色</th>
+                                        @*<th>所属用户组</th>
+                                        <th>角色</th>*@
                                         <th>邮箱</th>
-                                        <th>密码</th>
+                                        @*<th>密码</th>*@
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for (int i = 0; i < users.Count; i++)
                                     {
-                                    <tr>
-                                        <td i class="label_check" for="uid">
-                                            <input name="sample-checkbox-01" id="@users[i].Uid" value="2" type="checkbox" />
-                                        </td>
-                                        <td>@users[i].Uid</td>
-                                        <td>@users[i].Uname</td>
-                                        <td>&nbsp;&nbsp;</td>
-                                        <td>&nbsp;&nbsp;</td>
-                                        <td>@users[i].Email</td>
-                                        <td>000000</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-success" href='/User/Detail?uid=@users[i].Uid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
-                                                <a class="btn btn-danger" href='/User/DelUser?uid=@users[i].Uid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    }
-
-                                    @*<tr>
-                                            <td i class="label_check" for="checkbox-04">
-                                                <input name="sample-checkbox-01" id="checkbox-04" value="2" type="checkbox" />
+                                        <tr>
+                                            <td i class="label_check" for="uid">
+                                                <input name="checkbox-01" id="@users[i].Uid" value="2" type="checkbox" />
                                             </td>
-                                            <td>1004</td>
-                                            <td>Rose</td>
-                                            <td>研发部</td>
-                                            <td>经理</td>
-                                            <td>rsdje@162.com</td>
-                                            <td>000000</td>
-                                        </tr>*@
-
+                                            <td>@users[i].Uid</td>
+                                            <td>@users[i].Uname</td>
+                                            @*<td>&nbsp;&nbsp;</td>
+                                            <td>&nbsp;&nbsp;</td>*@
+                                            <td>@users[i].Email</td>
+                                            @*<td>000000</td>*@
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a class="btn btn-success" href='/User/Detail?uid=@users[i].Uid' onclick=""><i class="icon_pencil_alt">编辑</i></a>
+                                                    <a class="btn btn-danger" href='/User/DelUser?uid=@users[i].Uid' id="delete" onclick="toshow()"><i class="icon_close_alt2">删除</i></a>
+                                                    <a class="btn btn-default" href='/User/Apoint?uid=@users[i].Uid' title="分配权限点" onclick="">
+                                                        <i class="fa fa-key"></i>&nbsp;权限点
+                                                    </a>
+                                                    <a class="btn btn-default" href='/User/Role?uid=@users[i].Uid' title="分配角色" onclick="">
+                                                        <i class="fa fa-group"></i>&nbsp;角色
+                                                    </a>
+                                                    <a class="btn btn-default" href='/User/Group?uid=@users[i].Uid' title="分配用户组" onclick="">
+                                                        <i class="fa fa-sitemap"></i>&nbsp;用户组
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-
                 </div>
             </div>
+            <!--分页-->
             <div class="row">
                 <div class="col-sm-10 text-center">
                     <div class="dataTables_paginate paging_bootstrap">
@@ -184,123 +175,34 @@
 
     <script src="~/JavaScript.js"></script>
     <script type="text/javascript">
-            function All(ch) {
-                        var sda = ch.checked;
-                        var char = document.getElementsByName("sample-checkbox-01");
-                        for(var i in char){
-                    char[i].checked = sda;
-                }
+        function All(ch)
+        {
+            var sda = ch.checked;
+            var char = document.getElementsByName("checkbox-01");
+            for (var i in char) {
+             char[i].checked = sda;
+                        
             }
-
+        }
         function toshow(uid)
         {
             if (confirm("确认要删除？")) {                
                window.location.href = '/User/DelUser?uid=' + uid;
             }                                 
         }
-            
-        
-        function nrole() {
-        window.open('@Url.Action("Role","User")');
-        }
-        function ngroup() {
-        window.open('@Url.Action("Group","User")');
-        }
-        function naccess() {
-        window.open('@Url.Action("Apoint","User")');
-            }
-            function add() {
-                document.getElementById("show").style.display = "block";
-                document.getElementById("hide").style.display = "none";
+        function add()
+        {
+            document.getElementById("show").style.display = "block";
+            document.getElementById("hide").style.display = "none";
 
-                    }
-            @*function search() {
-                var url = '@Url.Action("GetUserByName","User")' + '?uname' + uname;
-                location.href = url;
-            }*@
-        function entersearch() {
-           
+        }
+        function entersearch()
+        {
             var event = window.event || arguments.callee.caller.arguments[0];
             if (event != null && event.code == "Enter") {
                 var form = document.getElementById("formSearch");
                 form.submit();
-               // search();
-                //document.getElementById("uname").style.display = "block";
-                //document.getElementById("hide").style.display = "none";
             }
         }        
     </script>
-
 </body>
-
- @*function que() {
-    document.getElementById("show").style.display = "none";
-    document.getElementById("hide").style.display = "block";
- }*@
-
-@*function seltAll(){
-            var chckBoxSign = document.getElementById("checkbox");       //ckb 全选/反选的选择框id
-    var chckBox = document.getElementsByName("chckBox");    //所有的选择框name都是chckBox
-    var num = chckBox.length;
-    if(chckBoxSign.checked){
-        for (var i = 0; i < num; i++){
-            chckBox[i].checked = true;
-            }
-    }else{
-        for (var i = 0; i < num; i++){
-            chckBox[i].checked = false;
-            }
-        }
-    }
-
-        function delcfm(){
-    var chckBox = document.getElementsByName("chckBox");
-    var num = chckBox.length;
-    var ids = null;
-            for (var i = 0; i < num; i++){
-                if (chckBox[i].checked){
-                    ids += chckBox[i].value + ",";
-        }
-    }
-    if(ids!=""){
-        if(window.confirm("确定删除所选记录？")){
-            $.ajax( {
-                type : "post",
-                url : '@Url.Action("UserDel","User")' + ids, //要自行删除的action
-                dataType : 'json',
-                success : function(data) {
-                    alert("删除成功");
-                    window.location.href = "channel-no.action" ;
-                },
-                error : function(data) {
-                    alert("系统错误，删除失败");
-                }
-            });
-        }
-    }else{
-        alert("请选择要删除的记录");
-        }
-    }*@
-@*function entersearch() {
-            var event = window.event || arguments.callee.caller.arguments[0];
-            if (event == "uname") {
-                //遍历移除b标签
-                $(".changestyle").each(function () {
-                    var xx = $(this).html();
-                    $(this).replaceWith(xx);
-                });
-                var str = $("tbody").html();//整个用户信息
-                var txt = $("uname").val();//文本框
-                if ($.trim(txt) != "") {
-                    var re = "<b class='changestyle'>
-    " + txt + "<b>
-        ";
-        var nn = str.replace(new ReExp(txt, "gm"), re);
-        $("#tbody").html(nn);
-        $(".card").hide().filter(":contains('" + txt + "')").show();
-        }
-        else {
-        $(".card").show;
-        }
-        }
-        }*@

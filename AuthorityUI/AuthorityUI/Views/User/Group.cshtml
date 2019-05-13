@@ -1,70 +1,120 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Authority.Infrastructure.MyCourse;
+@model User
+@{
+    var user = Model;
+    var teams = ViewData["Teams"] as List<Team>;
+    var unTeamList = ViewData["UnTeamList"] as List<Team>;
 }
 <section class="wrapper">
-    <div class="text-center">
-        <h1 class="display-4">分配用户组</h1>
-    </div>
-    <div class="col-lg-10">
+    <!--分配用户组-->
+    <div class="col-lg-12 text-center">
         <section class="panel">
+            <header class="panel-heading">
+                分配用户组
+            </header>
             <div class="panel-body">
-                <form class="form-horizontal " method="get">
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="inputSuccess">您已选择的用户：</label>
-                        <div class="box-content">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>用户ID</th>
-                                        <th>用户名称</th>
-                                        <th>所属用户组</th>
-                                        <th>角色</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1001</td>
-                                        <td>jack</td>
-                                        <td>设计部</td>
-                                        <td>总监</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>1002</td>
-                                        <td>Linda</td>
-                                        <td>人事部</td>
-                                        <td>职员</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>1003</td>
-                                        <td>Spadn</td>
-                                        <td>研发部</td>
-                                        <td>职员</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="form">
+                    <form id="formSearch" class="form-validate form-horizontal" method="get" novalidate="novalidate">
                         <div class="form-group">
-                            <label class="control-label col-lg-2" for="inputSuccess">选择用户组</label>
-                            <div class="col-lg-10">
-                                <select class="form-control m-bot15">
-                                    <option>研发部</option>
-                                    <option>人事部</option>
-                                    <option>设计部</option>
-                                    <option>管理部</option>
-                                </select>
+                            <label class="control-label col-lg-4" for="inputSuccess">您已选择的用户：</label>
+                            <div class="box-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>用户ID</th>
+                                            <th>用户名称</th>
+                                            <th>用户邮箱</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <input class="form-control" value="@user.Uid" minlength="5" required="" disabled />
+                                            </td>
+                                            <td>
+                                                <input class="form-control" id="uname" name="uname" value="@user.Uname" required="" disabled>
+                                            </td>
+                                            <td>
+                                                <input class="form-control " id="email" value="@user.Email" name="email" required="" disabled>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
-                        <div class="col-lg-offset-5 col-lg-10">
-                            <button type="submit" class="btn btn-danger">确定</button>
-                            <button type="submit" class="btn btn-danger">取消</button>
+                    </form>
+                </div>
+                <div class="form">
+                    <form id="formDel" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("UserTeDelete","UserTe")" novalidate="novalidate">
+                        <div class="col-sm-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    已有用户组
+                                </header>
+                                <div class="panel-body">
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < teams.Count; i++)
+                                        {
+                                            <label class="btn btn-primary" name="gid" id="@teams[i].Gid" onclick="change(@teams[i].Gid)">
+                                                @teams[i].Gname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
                         </div>
-                     </div>
-                   </form>
+                    </form>
+                    <form id="formAdd" class="form-validate form-horizontal col-sm-12" method="post" action="@Url.Action("AddUnUserTe","UserTe")" novalidate="novalidate">
+                        <div class="col-sm-6">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    可选用户组
+                                </header>
+                                <div class="panel-body">
+                                    <div class="btn-row">
+                                        @for (int i = 0; i < unTeamList.Count; i++)
+                                        {
+                                            <label class="btn btn-primary " name="gid" id="@unTeamList[i].Gid" onclick="add(@unTeamList[i].Gid)">
+                                                @unTeamList[i].Gname
+                                            </label>
+                                            <label>&nbsp;</label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="submit" class="btn btn-danger" onclick="back()">确定</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
+
     </div>
+
 </section>
+<script type="text/javascript">
+    function change(gid) {
+        if (confirm("确认删除用户组？")) {
+            window.location.href = '/UserTe/UserTeDelete?gid=' + gid + '&uid=@user.Uid';
+        }
+    }
+    function add(gid) {
+        if (confirm("确认增加用户组？")) {
+            window.location.href = '/UserTe/AddUnUserTe?gid=' + gid + '&uid=@user.Uid';
+        }
+    }
+    //返回
+    function back() {
+        window.location.href = '/User/Index';
+    }
+</script>

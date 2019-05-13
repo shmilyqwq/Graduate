@@ -79,11 +79,11 @@ namespace AuthorityUI.Controllers
         //    var model = roleaccService.GetAccessByRId((int)roac.Rid);
         //    return View(model);
         //}
-        public IActionResult AddRole(Roac roac)
+        public IActionResult AddRole(Role role)
         {
-            var roacService = new RoleAccService();
+            var roleService = new RoleService();
             
-            var count = roacService.AddRoac(roac);
+            var count = roleService.RoleAdd(role.Rname,role.Rdesc);
             return Redirect(Url.Action("Index", "Role"));
         }
         public IActionResult RoleDelete(Role role)
