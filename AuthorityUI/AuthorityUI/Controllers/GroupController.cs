@@ -54,7 +54,7 @@ namespace AuthorityUI.Controllers
             var accessService = new AccessService();
             for (int i = 0; i < gracs.Count; i++)
             {
-                var alist = accessService.GetAccessById((int)gracs[i].Aid);
+                var alist = accessService.GetAccessById(gracs[i].Aid.Value);
                 accesslist.Add(alist);
             }
             ViewData["Authors"] = accesslist;

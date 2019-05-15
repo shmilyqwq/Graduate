@@ -59,7 +59,7 @@ namespace AuthorityUI.Controllers
             var roleService = new RoleService();
             for (int i = 0; i < useros.Count; i++)
             {
-                var rlist = roleService.GetRoleById((int)useros[i].Rid);
+                var rlist = roleService.GetRoleById(useros[i].Rid.Value);
                 rolelist.Add(rlist);
             }
             ViewData["Roles"] = rolelist;
@@ -93,7 +93,7 @@ namespace AuthorityUI.Controllers
             var groupService = new GroupService();
             for (int i = 0; i < usertes.Count; i++)
             {
-                var glist = groupService.GetGroupById((int)usertes[i].Gid);
+                var glist = groupService.GetGroupById(usertes[i].Gid.Value);
                 grouplist.Add(glist);
             }
             ViewData["Teams"] = grouplist;
@@ -128,7 +128,7 @@ namespace AuthorityUI.Controllers
             var accessService = new AccessService();
             for (int i = 0; i < useraccs.Count; i++)
             {
-                var alist = accessService.GetAccessById((int)useraccs[i].Aid);
+                var alist = accessService.GetAccessById(useraccs[i].Aid.Value);
                 accesslist.Add(alist);
             }
             ViewData["Authors"] = accesslist;
@@ -148,9 +148,76 @@ namespace AuthorityUI.Controllers
             ViewData["UnAuthorList"] = unAuthorList;
             return View(model);
         }
-        public IActionResult Show()
+        /// <summary>
+        /// 查看用户权限树
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Show(User user,Team team,Role role)
         {
-            return View();
+            //获取用户信息
+            var userService = new UserService();
+            var model = userService.GetUserById(user.Uid);
+            var useraccService = new UserAccService();
+            //获取用户权限点
+            var useraccs = useraccService.GetAIdByUId(user.Uid);
+            List<Author> accesslist = new List<Author>();
+            var accessService = new AccessService();
+            for (int i = 0; i < useraccs.Count; i++)
+            {
+                var alist = accessService.GetAccessById(useraccs[i].Aid.Value);
+                accesslist.Add(alist);
+            }
+            //获取所属用户组
+            //获取用户组所有权限点
+            var userteService = new UserTeService();
+            var usertes = userteService.GetGIdByUId(user.Uid);
+            List<Team> grouplist = new List<Team>();
+            var groupService = new GroupService();
+            var gracService = new GracService();
+            for (int i = 0; i < usertes.Count; i++)
+            {
+                var glist = groupService.GetGroupById(usertes[i].Gid.Value);
+                grouplist.Add(glist);
+                var gracs = gracService.GetAIdByGId(usertes[i].Gid.Value);
+                for (int j = 0; j < gracs.Count; j++)
+                {
+                    var aglist = accessService.GetAccessById(gracs[j].Aid.Value);
+                    accesslist.Add(aglist);
+                }
+            }
+
+            //获取用户角色
+            //获取角色权限点
+            var userroService = new UserRoService();
+            var useros = userroService.GetRIdByUId(user.Uid);
+            List<Role> rolelist = new List<Role>();
+            var roleService = new RoleService();
+            var roleaccService = new RoleAccService();
+            for (int i = 0; i < useros.Count; i++)
+            {
+                var rlist = roleService.GetRoleById(useros[i].Rid.Value);
+                rolelist.Add(rlist);
+                var roacs = roleaccService.GetAIdByRId(useros[i].Rid.Value);
+                for (int j = 0; j < roacs.Count; j++)
+                {
+                    var arlist = accessService.GetAccessById(roacs[j].Aid.Value);
+                    accesslist.Add(arlist);
+                }
+            }
+            //List<Author> alllist = accesslist.Distinct().ToList();
+            //查重
+            var allList = new List<Author>();
+
+            foreach (var author in accesslist)
+            {
+                var isAdd = !allList.Exists(x => x.Aid == author.Aid);
+                if (isAdd)
+                {
+                    allList.Add(author);
+                }
+            }
+            ViewData["Authors"] = allList;
+            return View(model);
         }
         public IActionResult AddUser(User user)
         {

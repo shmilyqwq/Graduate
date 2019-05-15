@@ -31,7 +31,7 @@ namespace AuthorityUI.Controllers
             if (model == null || model.Password != tologin.Password)
             {
                 errorMsg = "用户名或密码错误";
-                return View("Index",errorMsg);
+                return View(errorMsg);
             }
            this.Response.Cookies.Append("user_id",model.Uid.ToString());
             return Redirect(Url.Action("Privacy", "Home"));

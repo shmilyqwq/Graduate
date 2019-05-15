@@ -52,7 +52,7 @@ namespace AuthorityUI.Controllers
             var accessService = new AccessService();
             for (int i = 0; i < roacs.Count; i++)
             {
-                var alist= accessService.GetAccessById((int)roacs[i].Aid);
+                var alist= accessService.GetAccessById(roacs[i].Aid.Value);
                 accesslist.Add(alist);
             }
             ViewData["Authors"] = accesslist;
